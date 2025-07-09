@@ -280,7 +280,7 @@ if settings.DEBUG:
     from .models_local import Item, Display
 else:
     from .models_cloudinary import Item, Display
-    
+   
 
 class OrderItem(models.Model):
 	"""
