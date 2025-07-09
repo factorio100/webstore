@@ -1,0 +1,22 @@
+{% extends "e_store/base.html" %}
+
+{% load i18n %}
+
+{% block page_header %}
+  <h1>{% trans "Collections" %}</h1>
+{% endblock page_header %}
+
+{% block content %}
+  {% if displays_urls %}
+    {% for display, url in displays_urls %}
+      <div class="d-flex flex-wrap justify-content-start">
+        <div class="card m-2">
+          <a href="{{ url }}">
+            <img src="{{ display.image.url }}" style="height: 200px; width: 200px; object-fit: cover;">
+          </a> 
+      </div>
+    {% endfor %}
+  {% else %}
+    <h3>We're getting things ready! Categories will be available shortly.</h3>
+  {% endif %}
+{% endblock content %}

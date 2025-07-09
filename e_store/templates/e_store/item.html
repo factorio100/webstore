@@ -1,0 +1,122 @@
+{% extends "e_store/base.html" %}
+
+{% load i18n %}
+
+{% load widget_tweaks %}
+
+{% block page_header %}
+  <h1>{{ item.name }}</h1>
+{% endblock page_header %}
+
+{% block content %}
+  <div class="pb-3">
+    <a href="{{ items_url }}">← {% trans "Back to items" %}</a>
+  </div>
+
+  <div class="d-flex flex-wrap gap-4">
+    
+    <!-- Product image on the left -->
+    <div style="flex: 1; margin-right: 20px;">
+      <img src="{{ item.image.url }}" alt="{{ item.name }}"
+          style="width: 400px; height: 400px; object-fit: contain; border: 1px solid #ccc; border-radius: 8px;">
+    </div>
+
+    <!-- Product details on the right -->
+    <div style="flex: 2;">
+      <p><strong>{% trans "Price" %}:</strong> {{ item.price }} DA</p>
+
+     
+      {% if in_stock %}
+        <!-- novalidate to disable popup error message -->
+        <form method="post" novalidate>
+          {% csrf_token %}
+
+          <!-- Quantity input -->
+          <div class="mb-3">
+            <label for="{{ form.quantity.id_for_label }}" class="form-label"><strong>{{ form.quantity.label }}:
+              {% if cart_item %}
+                ({{ cart_item.quantity }} in the cart)
+              {% endif %}
+            </strong></label>
+            <div class="input-group" style="max-width: 130px;">
+              {% if decrease_button_disabled or not selected_size %}
+                <button type="submit" name="adjust_quantity" value="decrease" class="btn btn-outline-secondary" disabled>−</button>
+              {% else %}
+                <button type="submit" name="adjust_quantity" value="decrease" class="btn btn-outline-secondary">−</button>
+              {% endif %}
+
+              {{ form.quantity }}
+              
+              {% if increase_button_disabled or not selected_size %}
+                <button type="submit" name="adjust_quantity" value="increase" class="btn btn-outline-secondary" disabled>+</button>
+              {% else %}
+                <button type="submit" name="adjust_quantity" value="increase" class="btn btn-outline-secondary">+</button>
+              {% endif %}
+            </div>
+            {% if form.errors.quantity %}
+              <div class="text-danger">{{ form.errors.quantity.0 }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Hidden input for selected size -->
+          {% if selected_size %}
+            <input type="hidden" name="size" value="{{ selected_size }}">
+          {% endif %}
+          <!-- Size selection -->
+          <div class="mb-3">
+            <label class="form-label"><strong>Size:</strong></label><br>
+            {% for size, label, available in sizes_with_status %}
+              {% if available %}
+                <button
+                  type="submit"
+                  name="size"
+                  value="{{ size }}"
+                  class="btn {% if selected_size == size %}btn-success{% else %}btn-outline-success{% endif %} size-option"
+                  style="margin: 2px;">
+                  {{ label }}
+                </button>
+              {% else %}
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary size-option"
+                  style="margin: 2px; text-decoration: line-through; pointer-events: none; opacity: 0.6;">
+                  {{ label }}
+                </button>
+              {% endif %}
+            {% endfor %}
+            {% if form.errors.size %}
+              <!-- Remove bullet point from error message -->
+              {% for error in form.errors.size %}
+                <div class="text-danger">{{ error }}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="mb-5">
+            <!-- Add to cart button -->
+            <button type="submit" name="add_to_cart" class="btn btn-primary">{% trans "Add to cart" %}</button>
+          </div>
+        </form>
+
+      {% else %}
+        <div class="text-danger">
+          <h1>{% trans "Out of stock" %}</h1>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <style>
+    /* Hide number input arrows in Chrome, Safari, Edge */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Hide number input arrows in Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+
+{% endblock content %}

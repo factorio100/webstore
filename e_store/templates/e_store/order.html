@@ -1,0 +1,131 @@
+{% extends "e_store/base.html" %}
+
+{% load i18n %}
+
+{% block page_header %}
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <div class="mb-3">
+        <h1>Order {{ order.status }}</h1>
+      </div>
+
+      {% if order.status == "pending" %}
+        <div class="d-flex flex-wrap gap-2 text-center mb-1">
+          <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="confirm_order" value="{{ order.id }}" class="btn btn-primary">
+              {% trans "Confirm Order" %}
+            </button>
+          </form>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
+            {% trans "Cancel order" %}
+          </button>
+        </div>
+
+      {% elif order.status == "confirmed" %}
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
+          {% trans "Cancel order" %}
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="text-end">
+      {% if order.status == "pending" %}
+        <h4>{% trans "Total" %}: {{ order.cart.total_price|floatformat:2 }} DA</h4>
+      {% elif order.status == "confirmed" %}
+        <h4>{% trans "Total" %}: {{ order.total_price|floatformat:2 }} DA</h4>
+      {% endif %}
+    </div>
+  </div>
+{% endblock page_header %}
+
+
+{% block content %}
+  <div class="d-flex justify-content-between">
+    <div>
+      {% if order.status == 'pending' %}
+        <!-- Use cart_item if order status is pending -->
+        {% for cart_item in order.cart.cartitem_set.all %}
+          <div class="border-bottom pb-2 pt-3">
+              <div class="d-flex flex-wrap align-items-center">  
+                {% if cart_item.item %}
+                  <div class="me-4 mb-2" style="width: 200px;">  
+                    <a href="{% url 'e_store:item' cart_item.item.id %}">  
+                      <img src="{{ cart_item.item.image.url }}" class="img-fluid" style="object-fit: cover; width: 200px; height:200px;">  
+                    </a>                     
+                  </div>
+                  <div>
+                    <h5>{{ cart_item.item_name }}</h5>
+                    {% if cart_item.inventory_is_available %}  
+                      <h5>{% trans "Size" %}: {{ cart_item.inventory.size }}</h5>
+                      <h5>{% trans "Quantity" %}: {{ cart_item.quantity }}</h5>
+                      <h5>{% trans "Product total" %}: {{ cart_item.total_price|floatformat:2 }} DA</h5>
+                    {% else %}
+                      <div class="text-danger mb-2">
+                        {% blocktrans with size=cart_item.inventory.size %}
+                          Size {{ size }} out of stock
+                        {% endblocktrans %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <h5>{{ cart_item.item_name }}</h5>
+                  {% trans "Item no longer available" %}
+                {% endif %}
+              </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Use orderitem for confirmed order -->
+        {% for order_item in order.orderitem_set.all %}
+          <div class="border-bottom pb-2 pt-3">
+              <div class="d-flex flex-wrap align-items-center">  
+                {% if order_item.item %}
+                  <div class="me-4 mb-2" style="width: 200px;">    
+                    <a href="{% url 'e_store:item' order_item.item.id %}">  
+                      <img src="{{ order_item.item.image.url }}" class="img-fluid" style="object-fit: cover; width: 200px; height:200px;">
+                    </a>                         
+                  </div>
+                  <div>
+                    <h5>{{ order_item.item_name }}</h5>
+                    {% if order_item.inventory_is_available %}    
+                      <h5>{% trans "Size" %}: {{ order_item.inventory.size }}</h5>
+                      <h5>{% trans "Quantity" %}: {{ order_item.quantity }}</h5>
+                      <h5>{% trans "Product total" %}: {{ order_item.total_price|floatformat:2 }} DA</h5>
+                    {% else %}
+                      <div class="text-danger mb-2">
+                        {% blocktrans with size=cart_item.inventory.size %}
+                          Size {{ size }} out of stock
+                        {% endblocktrans %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <h5>{{ order_item.item_name }}</h5>
+                  {% trans "Item no longer available" %}
+                {% endif %}
+              </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="text-end">
+      <div class="text-start">
+        <h2>Shipping infos</h2>
+        <div class="pt-1 pb-1">
+          <h4>{% trans "First Name" %}: {{ order.first_name }}</h4>
+          <h4>{% trans "Last Name" %}: {{ order.last_name }}</h4>
+          <h4>{% trans "Email" %}: {{ order.email }}</h4>
+          <h4>{% trans "Phone" %}: {{ order.phone_number }}</h4>
+          <h4>{% trans "Address" %}: {{ order.address }}, {{ order.city }}</h4>
+        </div>
+        {% if order.status == "pending" %}
+          <a href="{% url 'e_store:edit_order_informations' order.id %}" class="btn btn-outline-secondary">Edit infos</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+

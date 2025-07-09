@@ -1,0 +1,110 @@
+{% extends "e_store/base.html" %}
+
+{% load i18n %}
+
+{% load widget_tweaks %}
+
+{% block page_header %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h1 >{% trans "Your cart" %}</h1>
+
+    <!-- Right side -->
+    <div class="text-end">
+      <h4>{% trans "Total" %}: {{ cart.total_price|floatformat:2 }} DA</h4>
+
+      {% if pending_order %}
+        <h4>
+          <a href="{% url 'e_store:order' pending_order.id %}" class="btn btn-outline-secondary">{% trans "Go to pending order" %}</a>
+        </h4>
+      {% elif not pending_order and not cart.is_empty and not unavailable_inventory_item %}
+        <h4 class="mb-0">
+          <a href="{% url 'e_store:order_informations' %}" class="btn btn-outline-primary">{% trans "Shipping" %}</a>
+        </h4>
+      {% endif %}
+    </div>
+  </div>
+{% endblock page_header %}
+
+{% block content %}
+  
+  {% if not cart.is_empty %}       
+    {% for form, cart_item, available_inventory in forms %} 
+      <form method="post" action="{% url 'e_store:cart' %}" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="cart_item_id" value="{{ cart_item.id }}">
+        <div class="border-bottom  pt-3">
+          <div class="d-flex flex-wrap align-items-center mb-4 p-2">    
+
+            <div class="me-4" style="width: 200px;">
+              <a href="{% url 'e_store:item' cart_item.item.id %}">  
+                <img src="{{ cart_item.item.image.url }}" class="img-fluid" style="object-fit: cover; width: 200px; height: 200px;">
+              </a>               
+            </div>
+
+            <div>
+              <h5>{{ cart_item.item_name }}</h5>
+              {% if cart_item.item %}
+                {% if cart_item.inventory_is_available %} 
+                  <div class="mb-2">{% trans "Size" %}: {{ cart_item.inventory.size }}</div>
+                  
+                  <div class="input-group mb-2" style="max-width: 130px;">
+                    
+                    {% if cart_item.quantity == 1 %}
+                      <button type="submit" name="adjust_quantity" value="decrease" class="btn btn-outline-secondary rounded-start" disabled>−</button>
+                    {% else %}
+                      <button type="submit" name="adjust_quantity" value="decrease" class="btn btn-outline-secondary rounded-start">−</button>
+                    {% endif %}
+
+                    {{ form.quantity }}
+
+                    {% if cart_item.quantity >= available_inventory %}
+                      <button type="submit" name="adjust_quantity" value="increase" class="btn btn-outline-secondary rounded-end" disabled>+</button>
+                    {% else %}
+                      <button type="submit" name="adjust_quantity" value="increase" class="btn btn-outline-secondary rounded-end">+</button>
+                    {% endif %}
+
+                    {% if form.errors.quantity %}
+                      <div class="text-danger">{{ form.errors.quantity.0 }}</div>
+                    {% endif %}
+                  </div>
+
+                  <div class="mb-2">{% trans "Product total" %}: {{ cart_item.total_price|floatformat:2 }} DA</div>
+                
+                {% else %}
+                    <div class="text-danger mb-2">
+                      {% blocktrans with size=cart_item.inventory.size %}
+                        Size {{ size }} out of stock
+                      {% endblocktrans %}
+                    </div>
+                {% endif %}
+                
+              {% else %}
+                <div class="text-danger mb-2">{% trans "Item no longer available" %}.</div>
+              {% endif %}
+              
+              <button class="btn btn-danger mb-2" type="submit" name="delete_cart_item" value="delete"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>  
+        </div>
+      </form>         
+    {% endfor %}
+    
+  {% else %}
+    <p>{% trans "Your cart is empty" %}</p>
+  {% endif %}
+
+  <style>
+    /* Hide number input arrows in Chrome, Safari, Edge */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Hide number input arrows in Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+
+{% endblock content %}

@@ -1,0 +1,8 @@
+s_env
+__pycache__
+*.sqlite3
+.env
+run_store_venv.bat
+run_store_server.bat
+store_project.sublime-workspace
+store_project.sublime-project

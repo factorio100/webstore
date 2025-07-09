@@ -1,0 +1,34 @@
+{% extends "e_store/base.html" %}
+
+{% load i18n %}
+
+{% block page_header %}
+  <h1>Order history for the past 30 days</h1>
+{% endblock page_header %}
+
+{% block content %}
+  {% if orders %}
+    {% for order in orders %}
+      <div class="border-bottom  pb-4 pt-3">
+        <h5>
+          <i class="bi bi-receipt-cutoff"></i> <strong>{% trans "Order" %} #{{ order.id }}</strong>
+        </h5>
+        <p class="mb-1">
+          <strong>{% trans "Date" %}:</strong> {{ order.created_at|date:"Y-m-d H:i" }}
+        </p>
+        <p class="mb-1">
+          <strong>{% trans "Total" %}:</strong> {{ order.total_price|floatformat:2 }} DZD
+        </p>
+        <p class="mb-2">
+          <strong>{% trans "Status" %}:</strong> {{ order.status }}
+        </p>
+        <a href="{% url 'e_store:order' order.id %}" class="btn btn-outline-primary">
+          <i class="bi bi-box-seam"></i> {% trans "View details" %}
+        </a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-muted">{% trans "You have no orders yet." %}</p>
+  {% endif %}
+
+{% endblock content %}

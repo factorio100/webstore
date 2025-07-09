@@ -1,0 +1,2029 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-29 01:37+0100\n"
+"PO-Revision-Date: 2025-04-09 11:49+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 3.6\n"
+
+#: .\e_store\forms.py:10
+msgid "Please select a size."
+msgstr ""
+
+#: .\e_store\forms.py:17 .\e_store\forms.py:99
+msgid "Please enter a quantity."
+msgstr ""
+
+#: .\e_store\forms.py:18 .\e_store\forms.py:100
+#, fuzzy
+#| msgid "Enter a whole number."
+msgid "Please enter a valid whole number."
+msgstr "أدخل رقمًا كاملاً."
+
+#: .\e_store\forms.py:19 .\e_store\forms.py:101
+msgid "You must add at least one item."
+msgstr ""
+
+#: .\e_store\forms.py:77
+msgid "Available stock already in the cart."
+msgstr ""
+
+#: .\e_store\forms.py:80 .\e_store\forms.py:87 .\e_store\forms.py:138
+msgid "Quantity must at least be 1."
+msgstr ""
+
+#: .\e_store\forms.py:84 .\e_store\forms.py:135
+msgid "Stock unavailable, select a lower amount."
+msgstr "المخزون غير متوفر، حدد كمية أقل."
+
+#: .\e_store\forms.py:132
+msgid "Inventory not found for this item."
+msgstr "المخزون غير موجود لهذا العنصر."
+
+#: .\e_store\forms.py:160 .\e_store\models.py:268
+msgid ""
+"This phone number has been blacklisted due to repeated order cancellations"
+msgstr "تم إدراج هذا الرقم في القائمة السوداء بسبب إلغاء الطلبات المتكرر"
+
+#: .\e_store\forms.py:171 .\e_store\models.py:289
+msgid ""
+"You have a pending order, confirm or cancel it before creating a new order."
+msgstr ""
+
+#: .\e_store\forms.py:179 .\e_store\views.py:375
+msgid ""
+"Sorry, one or more items in your cart are out of stock. Please review your "
+"cart."
+msgstr ""
+
+#: .\e_store\forms.py:182
+msgid "One or more items are no longer available, Please review your cart."
+msgstr ""
+
+#: .\e_store\models.py:126
+msgid "Cart item must be associated with a valid item."
+msgstr ""
+
+#: .\e_store\models.py:129
+#, fuzzy
+#| msgid "Inventory not found for this item."
+msgid "Inventory is not set."
+msgstr "المخزون غير موجود لهذا العنصر."
+
+#: .\e_store\models.py:132
+msgid "Quantity must be at least 1."
+msgstr ""
+
+#: .\e_store\models.py:135
+#, fuzzy, python-format
+#| msgid "Stock unavailable, select a lower amount."
+msgid "Stock unavailable: only %d left."
+msgstr "المخزون غير متوفر، حدد كمية أقل."
+
+#: .\e_store\templates\e_store\base.html:93
+msgid "Confirm Cancellation"
+msgstr "تأكيد الإلغاء"
+
+#: .\e_store\templates\e_store\base.html:97
+msgid ""
+"Are you sure you want to cancel this order? This action cannot be undone."
+msgstr "هل أنت متأكد أنك تريد إلغاء هذا الطلب؟لا يمكن التراجع عن هذا الإجراء."
+
+#: .\e_store\templates\e_store\base.html:100
+#: .\s_env\Lib\site-packages\django\forms\widgets.py:802
+msgid "No"
+msgstr "لا"
+
+#: .\e_store\templates\e_store\base.html:104
+msgid "Yes, Cancel"
+msgstr "نعم ، إلغاء"
+
+#: .\e_store\templates\e_store\cart.html:9
+#, fuzzy
+#| msgid "Your cart is empty"
+msgid "Your cart"
+msgstr "سلة التسوق فارغة"
+
+#: .\e_store\templates\e_store\cart.html:13
+#: .\e_store\templates\e_store\order.html:37
+#: .\e_store\templates\e_store\order.html:39
+#: .\e_store\templates\e_store\order_history.html:20
+msgid "Total"
+msgstr "المجموع"
+
+#: .\e_store\templates\e_store\cart.html:17
+msgid "Go to pending order"
+msgstr ""
+
+#: .\e_store\templates\e_store\cart.html:21
+msgid "Shipping"
+msgstr ""
+
+#: .\e_store\templates\e_store\cart.html:48
+#: .\e_store\templates\e_store\order.html:64
+#: .\e_store\templates\e_store\order.html:88
+msgid "Size"
+msgstr "مقاس"
+
+#: .\e_store\templates\e_store\cart.html:71
+msgid "Product total"
+msgstr ""
+
+#: .\e_store\templates\e_store\cart.html:78
+msgid "Item no longer available"
+msgstr "العنصر لم يعد متاحًا"
+
+#: .\e_store\templates\e_store\cart.html:89
+msgid "Your cart is empty"
+msgstr "سلة التسوق فارغة"
+
+#: .\e_store\templates\e_store\edit_order_informations.html:6
+msgid "Edit Shipping informations"
+msgstr ""
+
+#: .\e_store\templates\e_store\edit_order_informations.html:22
+msgid "Save and continue"
+msgstr ""
+
+#: .\e_store\templates\e_store\home.html:5
+msgid "Collections"
+msgstr ""
+
+#: .\e_store\templates\e_store\item.html:13
+msgid "Back to items"
+msgstr ""
+
+#: .\e_store\templates\e_store\item.html:26
+#: .\e_store\templates\e_store\order.html:61
+#: .\e_store\templates\e_store\order.html:86
+#: .\e_store\templates\e_store\pants.html:19
+#: .\e_store\templates\e_store\shirts.html:19
+msgid "Price"
+msgstr "السعر"
+
+#: .\e_store\templates\e_store\item.html:96
+msgid "Add to cart"
+msgstr "أضف إلى السلة"
+
+#: .\e_store\templates\e_store\item.html:102
+#: .\e_store\templates\e_store\order.html:67
+msgid "Out of stock"
+msgstr "إنتهى من المخزن"
+
+#: .\e_store\templates\e_store\order.html:17
+msgid "Confirm Order"
+msgstr "تأكيد الأمر"
+
+#: .\e_store\templates\e_store\order.html:22
+#: .\e_store\templates\e_store\order.html:29
+#, fuzzy
+#| msgid "Cancel the order"
+msgid "Cancel order"
+msgstr "إلغاء الطلب"
+
+#: .\e_store\templates\e_store\order.html:62
+#: .\e_store\templates\e_store\order.html:87
+msgid "Type"
+msgstr "يكتب"
+
+#: .\e_store\templates\e_store\order.html:65
+#: .\e_store\templates\e_store\order.html:89
+msgid "Quantity"
+msgstr "الكمية"
+
+#: .\e_store\templates\e_store\order.html:72
+#, fuzzy
+#| msgid "Item no longer available"
+msgid "cart_item.item_name no longer available"
+msgstr "العنصر لم يعد متاحًا"
+
+#: .\e_store\templates\e_store\order.html:100
+msgid "First Name"
+msgstr "الاسم الأول"
+
+#: .\e_store\templates\e_store\order.html:101
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+#: .\e_store\templates\e_store\order.html:102
+msgid "Email"
+msgstr "بريد إلكتروني"
+
+#: .\e_store\templates\e_store\order.html:103
+msgid "Phone"
+msgstr "هاتف"
+
+#: .\e_store\templates\e_store\order.html:104
+msgid "Address"
+msgstr "عنوان"
+
+#: .\e_store\templates\e_store\order_history.html:14
+#: .\s_env\Lib\site-packages\django\forms\formsets.py:484
+#: .\s_env\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr "طلب"
+
+#: .\e_store\templates\e_store\order_history.html:17
+msgid "Date"
+msgstr "تاريخ"
+
+#: .\e_store\templates\e_store\order_history.html:23
+msgid "Status"
+msgstr "حالة"
+
+#: .\e_store\templates\e_store\order_history.html:26
+msgid "View details"
+msgstr "عرض التفاصيل"
+
+#: .\e_store\templates\e_store\order_history.html:31
+msgid "You have no orders yet."
+msgstr ""
+
+#: .\e_store\templates\e_store\order_informations.html:6
+#, fuzzy
+#| msgid "Information:"
+msgid "Shipping informations"
+msgstr "معلومة:"
+
+#: .\e_store\templates\e_store\order_informations.html:23
+msgid "Continue"
+msgstr "يكمل"
+
+#: .\e_store\templates\e_store\order_success.html:6
+msgid "Order Placed Successfully!"
+msgstr "وضع الأمر بنجاح!"
+
+#: .\e_store\templates\e_store\order_success.html:10
+msgid "Thank you for your purchase. Your order has been placed successfully."
+msgstr "شكرا لك على شرائك.تم تقديم طلبك بنجاح."
+
+#: .\e_store\templates\e_store\order_success.html:11
+msgid "We will contact you soon for delivery details."
+msgstr "سوف نتصل بك قريبًا للحصول على تفاصيل التسليم."
+
+#: .\e_store\templates\e_store\order_success.html:12
+#, fuzzy
+#| msgid "View details"
+msgid "Order details"
+msgstr "عرض التفاصيل"
+
+#: .\e_store\templates\e_store\order_success.html:12
+msgid "Return to Home"
+msgstr "العودة إلى المنزل"
+
+#: .\e_store\templates\e_store\pants.html:6
+#, fuzzy
+#| msgid "Pants:"
+msgid "Pants"
+msgstr "بنطال:"
+
+#: .\e_store\templates\e_store\shirts.html:6
+#, fuzzy
+#| msgid "Shirts:"
+msgid "Shirts"
+msgstr "القمصان:"
+
+#: .\e_store\templates\email_messages\order_confirmation_message.html:1
+msgid "Dear"
+msgstr ""
+
+#: .\e_store\templates\email_messages\order_confirmation_message.html:3
+msgid "Thank you for placing your order with us! We have received your"
+msgstr ""
+
+#: .\e_store\templates\email_messages\order_confirmation_message.html:4
+#, fuzzy
+#| msgid "Order"
+msgid "order"
+msgstr "طلب"
+
+#: .\e_store\templates\email_messages\order_confirmation_message.html:4
+msgid "from"
+msgstr ""
+
+#: .\e_store\templates\email_messages\order_confirmation_message.html:7
+msgid ""
+"To ensure a smooth delivery process, our team will contact you shortly via "
+"phone to confirm your order details"
+msgstr ""
+
+#: .\e_store\views.py:43
+msgid "There has been a problem"
+msgstr "كانت هناك مشكلة"
+
+#: .\e_store\views.py:171
+#, fuzzy
+#| msgid "Add to cart"
+msgid "Item added to cart."
+msgstr "أضف إلى السلة"
+
+#: .\e_store\views.py:175
+msgid "This item is out of stock."
+msgstr "هذا العنصر غير منفرج."
+
+#: .\e_store\views.py:248 .\e_store\views.py:424
+msgid "Order canceled successfully."
+msgstr "تم إلغاء الطلب بنجاح."
+
+#: .\e_store\views.py:428
+msgid "You cannot cancel this order."
+msgstr "لا يمكنك إلغاء هذا الطلب."
+
+#: .\s_env\Lib\site-packages\bootstrap4\components.py:17
+#: .\s_env\Lib\site-packages\bootstrap4\templates\bootstrap4\form_errors.html:3
+#: .\s_env\Lib\site-packages\bootstrap4\templates\bootstrap4\messages.html:4
+msgid "close"
+msgstr "يغلق"
+
+#: .\s_env\Lib\site-packages\click\_termui_impl.py:518
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr "{محرر}: فشل التحرير"
+
+#: .\s_env\Lib\site-packages\click\_termui_impl.py:522
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr "{محرر}: فشل التحرير: {e}"
+
+#: .\s_env\Lib\site-packages\click\core.py:1120
+msgid "Aborted!"
+msgstr "مجهول!"
+
+#: .\s_env\Lib\site-packages\click\core.py:1309
+#: .\s_env\Lib\site-packages\click\decorators.py:559
+msgid "Show this message and exit."
+msgstr "أظهر هذه الرسالة والخروج."
+
+#: .\s_env\Lib\site-packages\click\core.py:1340
+#: .\s_env\Lib\site-packages\click\core.py:1370
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr "(تم إهماله) {text}"
+
+#: .\s_env\Lib\site-packages\click\core.py:1387
+msgid "Options"
+msgstr "خيارات"
+
+#: .\s_env\Lib\site-packages\click\core.py:1413
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\click\core.py:1429
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr "deprecationwarning: تم إهمال الأمر {name! r}."
+
+#: .\s_env\Lib\site-packages\click\core.py:1636
+msgid "Commands"
+msgstr "الأوامر"
+
+#: .\s_env\Lib\site-packages\click\core.py:1668
+msgid "Missing command."
+msgstr "الأمر المفقود."
+
+#: .\s_env\Lib\site-packages\click\core.py:1746
+msgid "No such command {name!r}."
+msgstr "لا مثل هذا الأمر {name! r}."
+
+#: .\s_env\Lib\site-packages\click\core.py:2310
+msgid "Value must be an iterable."
+msgstr "يجب أن تكون القيمة موثوقة."
+
+#: .\s_env\Lib\site-packages\click\core.py:2331
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\click\core.py:2778
+#, python-brace-format
+msgid "env var: {var}"
+msgstr "كان البيئة: {كان}"
+
+#: .\s_env\Lib\site-packages\click\core.py:2808
+msgid "(dynamic)"
+msgstr "(متحرك)"
+
+#: .\s_env\Lib\site-packages\click\core.py:2821
+#, python-brace-format
+msgid "default: {default}"
+msgstr "الافتراضي: {default}"
+
+#: .\s_env\Lib\site-packages\click\core.py:2834
+msgid "required"
+msgstr "مطلوب"
+
+#: .\s_env\Lib\site-packages\click\decorators.py:465
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr "٪ (prog) s ، الإصدار ٪ (الإصدار) ق"
+
+#: .\s_env\Lib\site-packages\click\decorators.py:528
+msgid "Show the version and exit."
+msgstr "إظهار الإصدار والخروج."
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:44
+#: .\s_env\Lib\site-packages\click\exceptions.py:80
+#, python-brace-format
+msgid "Error: {message}"
+msgstr "خطأ: {message}"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:72
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr "جرب '{command} {Option}' للمساعدة."
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:121
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr "قيمة غير صالحة: {message}"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:123
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr "قيمة غير صالحة لـ {param_hint}: {message}"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:179
+msgid "Missing argument"
+msgstr "حجة مفقودة"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:181
+msgid "Missing option"
+msgstr "خيار مفقود"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:183
+msgid "Missing parameter"
+msgstr "المعلمة المفقودة"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:185
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr "مفقود {param_type}"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:192
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr "المعلمة المفقودة: {param_name}"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:212
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr "لا يوجد خيار من هذا القبيل: {name}"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:224
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:262
+msgid "unknown error"
+msgstr "خطأ غير معروف"
+
+#: .\s_env\Lib\site-packages\click\exceptions.py:269
+msgid "Could not open file {filename!r}: {message}"
+msgstr "لا يمكن فتح الملف {filename! r}: {message}"
+
+#: .\s_env\Lib\site-packages\click\formatting.py:156
+msgid "Usage:"
+msgstr "الاستخدام:"
+
+#: .\s_env\Lib\site-packages\click\parser.py:231
+msgid "Argument {name!r} takes {nargs} values."
+msgstr "الوسيطة {name! r} تأخذ قيم {nargs}."
+
+#: .\s_env\Lib\site-packages\click\parser.py:413
+msgid "Option {name!r} does not take a value."
+msgstr "الخيار {name! r} لا يأخذ قيمة."
+
+#: .\s_env\Lib\site-packages\click\parser.py:474
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\click\shell_completion.py:319
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr "لا يتم دعم إكمال Shell لإصدارات Bash التي تزيد عن 4.4."
+
+#: .\s_env\Lib\site-packages\click\shell_completion.py:326
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr "لا يمكن اكتشاف نسخة باش ، لا يتم دعم إكمال شل."
+
+#: .\s_env\Lib\site-packages\click\termui.py:158
+msgid "Repeat for confirmation"
+msgstr "كرر للتأكيد"
+
+#: .\s_env\Lib\site-packages\click\termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr "خطأ: كانت القيمة التي أدخلتها غير صالحة."
+
+#: .\s_env\Lib\site-packages\click\termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr "خطأ: {e.message}"
+
+#: .\s_env\Lib\site-packages\click\termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr "خطأ: لا تتطابق القيمتان المدخلتان."
+
+#: .\s_env\Lib\site-packages\click\termui.py:243
+msgid "Error: invalid input"
+msgstr "خطأ: إدخال غير صالح"
+
+#: .\s_env\Lib\site-packages\click\termui.py:773
+msgid "Press any key to continue..."
+msgstr "اضغط على أي مفتاح للمتابعة ..."
+
+#: .\s_env\Lib\site-packages\click\types.py:266
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+"اختر من:\n"
+"{الخيارات}"
+
+#: .\s_env\Lib\site-packages\click\types.py:298
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\click\types.py:392
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\click\types.py:414
+msgid "{value!r} is not a valid {number_type}."
+msgstr "{value! r} ليست صالحة {number_type}."
+
+#: .\s_env\Lib\site-packages\click\types.py:470
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr "{value} ليس في النطاق {Range}."
+
+#: .\s_env\Lib\site-packages\click\types.py:611
+msgid "{value!r} is not a valid boolean."
+msgstr "{value! r} ليست منطقية صالحة."
+
+#: .\s_env\Lib\site-packages\click\types.py:635
+msgid "{value!r} is not a valid UUID."
+msgstr "{value! r} ليس uuid صالحًا."
+
+#: .\s_env\Lib\site-packages\click\types.py:822
+msgid "file"
+msgstr "ملف"
+
+#: .\s_env\Lib\site-packages\click\types.py:824
+msgid "directory"
+msgstr "دليل"
+
+#: .\s_env\Lib\site-packages\click\types.py:826
+msgid "path"
+msgstr "طريق"
+
+#: .\s_env\Lib\site-packages\click\types.py:877
+msgid "{name} {filename!r} does not exist."
+msgstr "{name} {filename! r} غير موجود."
+
+#: .\s_env\Lib\site-packages\click\types.py:886
+msgid "{name} {filename!r} is a file."
+msgstr "{name} {filename! r} هو ملف."
+
+#: .\s_env\Lib\site-packages\click\types.py:894
+#, python-brace-format
+msgid "{name} '{filename}' is a directory."
+msgstr "{name} '{filename}' هو دليل."
+
+#: .\s_env\Lib\site-packages\click\types.py:903
+msgid "{name} {filename!r} is not readable."
+msgstr "{name} {filename! r} غير قابل للقراءة."
+
+#: .\s_env\Lib\site-packages\click\types.py:912
+msgid "{name} {filename!r} is not writable."
+msgstr "{name} {filename! r} غير قابل للكتابة."
+
+#: .\s_env\Lib\site-packages\click\types.py:921
+msgid "{name} {filename!r} is not executable."
+msgstr "{name} {filename! r} غير قابل للتنفيذ."
+
+#: .\s_env\Lib\site-packages\click\types.py:988
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr "رسائل"
+
+#: .\s_env\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr "خرائط الموقع"
+
+#: .\s_env\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr "ملفات ثابتة"
+
+#: .\s_env\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr "المشاركة"
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\s_env\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr "..."
+
+#: .\s_env\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr "رقم الصفحة هذا ليس عددًا صحيحًا"
+
+#: .\s_env\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr "رقم الصفحة أقل من 1"
+
+#: .\s_env\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr "لا تحتوي تلك الصفحة على أي نتائج"
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr "أدخل قيمة صالحة."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr "أدخل اسم مجال صالح."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:155
+#: .\s_env\Lib\site-packages\django\forms\fields.py:768
+msgid "Enter a valid URL."
+msgstr "أدخل عنوان URL صالحًا."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:216
+msgid "Enter a valid integer."
+msgstr "أدخل عدد صحيح صالح."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:227
+msgid "Enter a valid email address."
+msgstr "أدخل عنوان بريد إلكتروني صالح."
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\s_env\Lib\site-packages\django\core\validators.py:310
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr "أدخل \"سبيكة\" صالحة تتكون من الحروف أو الأرقام أو السطح أو الواصلات."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:318
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+"أدخل \"سبيكة\" صالحة تتكون من حروف أو أرقام أو ترسيخ أو واصلات Unicode."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:330
+#: .\s_env\Lib\site-packages\django\core\validators.py:339
+#: .\s_env\Lib\site-packages\django\core\validators.py:353
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2215
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr "أدخل عنوانًا صالحًا ٪ (بروتوكول)."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:332
+msgid "IPv4"
+msgstr "IPRSH"
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:341
+#: .\s_env\Lib\site-packages\django\utils\ipv6.py:30
+msgid "IPv6"
+msgstr "IPVSH"
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:355
+msgid "IPv4 or IPv6"
+msgstr "IPv4 أو IPv6"
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:396
+msgid "Enter only digits separated by commas."
+msgstr "أدخل الأرقام فقط مفصولة بفواصل."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:402
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr "تأكد من أن هذه القيمة هي ٪ (limit_value) s (أنها ٪ (show_value) s)."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:437
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr "تأكد من أن هذه القيمة أقل من أو تساوي ٪ (limit_value) s."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:446
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr "تأكد من أن هذه القيمة أكبر من أو تساوي ٪ (limit_value) s."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:455
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr "تأكد من أن هذه القيمة هي مضاعف حجم الخطوة ٪ (limit_value) s."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:462
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+"تأكد من أن هذه القيمة هي مضاعف حجم الخطوة ٪ (limit_value) s ، بدءًا من ٪ "
+"(الإزاحة) s ، على سبيل المثال٪ (الإزاحة) s ، ٪ (alight_value1) s ، ٪ "
+"(alval_value2) s ، وهكذا."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:494
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:512
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:535
+#: .\s_env\Lib\site-packages\django\forms\fields.py:359
+#: .\s_env\Lib\site-packages\django\forms\fields.py:398
+msgid "Enter a number."
+msgstr "أدخل رقمًا."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:537
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:542
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:547
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:618
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+"ملحق الملف \"٪ (تمديد) S\" غير مسموح به.الامتدادات المسموح بها هي: ٪ "
+"(المسموح بها _extensions) s."
+
+#: .\s_env\Lib\site-packages\django\core\validators.py:680
+msgid "Null characters are not allowed."
+msgstr "الشخصيات الفارغة غير مسموح بها."
+
+#: .\s_env\Lib\site-packages\django\db\models\base.py:1571
+#: .\s_env\Lib\site-packages\django\forms\models.py:908
+msgid "and"
+msgstr "و"
+
+#: .\s_env\Lib\site-packages\django\db\models\base.py:1573
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr "٪ (model_name) s مع هذا ٪ (field_labels) s موجود بالفعل."
+
+#: .\s_env\Lib\site-packages\django\db\models\constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr "تم انتهاك القيد \"٪ (الاسم) S\"."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr "القيمة ٪ (القيمة) R ليست خيارًا صالحًا."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr "لا يمكن أن يكون هذا الحقل لاغية."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr "لا يمكن أن يكون هذا الحقل فارغًا."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr "٪ (model_name) s مع هذا ٪ (field_label) s موجود بالفعل."
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+"يجب أن تكون ٪ (field_label) s فريدة من نوعها لـ ٪ (date_field_label) s ٪ "
+"(lookup_type) s."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr "حقل النوع: ٪ (field_type) s"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1156
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr "يجب أن تكون قيمة \"٪ (القيمة) S\" صحيحة أو خاطئة."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1157
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr "يجب أن تكون قيمة \"٪ (القيمة) S\" صحيحة أو خاطئة أو لا شيء."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1159
+msgid "Boolean (Either True or False)"
+msgstr "منطقية (إما صحيحة أو خاطئة)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1209
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr "سلسلة (تصل إلى ٪ (max_length) s)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1211
+msgid "String (unlimited)"
+msgstr "سلسلة (غير محدودة)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1320
+msgid "Comma-separated integers"
+msgstr "الأعداد الصحيحة مفصولة فاصلة"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1421
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+"قيمة \"٪ (القيمة) S\" لها تنسيق تاريخ غير صالح.يجب أن يكون بتنسيق yyyy-mm-dd."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1425
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1560
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+"تحتوي قيمة \"٪ (القيمة) S\" على التنسيق الصحيح (Yyyy-MM-DD) ولكنه تاريخ غير "
+"صالح."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1429
+msgid "Date (without time)"
+msgstr "التاريخ (بدون وقت)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1556
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
+msgstr ""
+"قيمة \"٪ (القيمة) S\" لها تنسيق غير صالح.يجب أن يكون بتنسيق yyyy-mm-dd hh: "
+"mm [: ss [.uuuuuu]] [tz]."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1564
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+"تحتوي قيمة \"٪ (value) s\" على التنسيق الصحيح (YYYY-MM-DD HH: MM [: SS "
+"[.UUUUUU]] [TZ]) ولكنه تاريخ/وقت غير صالح."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1569
+msgid "Date (with time)"
+msgstr "التاريخ (مع مرور الوقت)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1696
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr "يجب أن تكون قيمة \"٪ (القيمة) S\" رقمًا عشريًا."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1698
+msgid "Decimal number"
+msgstr "عدد عشري"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1859
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
+msgstr ""
+"قيمة \"٪ (القيمة) S\" لها تنسيق غير صالح.يجب أن يكون في [dd] [[hh:] mm:] ss "
+"[.uuuuuu]."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1863
+msgid "Duration"
+msgstr "مدة"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1915
+msgid "Email address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:1940
+msgid "File path"
+msgstr "مسار الملف"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2018
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr "يجب أن تكون قيمة \"٪ (القيمة) S\" تعويمًا."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2020
+msgid "Floating point number"
+msgstr "رقم نقطة العائمة"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2060
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr "يجب أن تكون قيمة \"٪ (القيمة) S\" عددًا صحيحًا."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2062
+msgid "Integer"
+msgstr "عدد صحيح"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2158
+msgid "Big (8 byte) integer"
+msgstr "عدد صحيح (8 بايت)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2175
+msgid "Small integer"
+msgstr "عدد صحيح صغير"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2183
+msgid "IPv4 address"
+msgstr "عنوان IPv4"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2214
+msgid "IP address"
+msgstr "عنوان IP"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2305
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2306
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr "يجب أن تكون قيمة \"٪ (القيمة) S\" إما صحيحة أو خاطئة."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2308
+msgid "Boolean (Either True, False or None)"
+msgstr "منطقية (إما صحيحة أو خاطئة أو لا شيء)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2359
+msgid "Positive big integer"
+msgstr "عدد صحيح إيجابي"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2374
+msgid "Positive integer"
+msgstr "عدد صحيح إيجابي"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2389
+msgid "Positive small integer"
+msgstr "عدد صحيح إيجابي"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2405
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr "Slug (حتى ٪ (max_length) s)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2441
+msgid "Text"
+msgstr "نص"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2521
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+"قيمة \"٪ (القيمة) S\" لها تنسيق غير صالح.يجب أن يكون في HH: mm [: ss "
+"[.uuuuuuu]]."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2525
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+"تحتوي قيمة \"٪ (القيمة) S\" على التنسيق الصحيح (HH: MM [: SS [.UUUUUU]]) "
+"ولكنه وقت غير صالح."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2529
+msgid "Time"
+msgstr "وقت"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2637
+msgid "URL"
+msgstr "عنوان URL"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2661
+msgid "Raw binary data"
+msgstr "البيانات الثنائية الخام"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2726
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr "\"٪ (القيمة) S\" ليست uuid صالحة."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\__init__.py:2728
+msgid "Universally unique identifier"
+msgstr "معرف فريد عالمي"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr "ملف"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr "صورة"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr "كائن JSON"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr "يجب أن تكون القيمة صالحة JSON."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\related.py:932
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr "٪ (النموذج) مثيل مع ٪ (الحقل) s ٪ (القيمة) r غير موجود."
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\related.py:934
+msgid "Foreign Key (type determined by related field)"
+msgstr "المفتاح الخارجي (النوع الذي يحدده الحقل ذي الصلة)"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\related.py:1228
+msgid "One-to-one relationship"
+msgstr "علاقة فردية"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\related.py:1285
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr "٪ (من) s-٪ (إلى) العلاقة s"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\related.py:1287
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr "٪ (من) S-٪ (إلى) العلاقات"
+
+#: .\s_env\Lib\site-packages\django\db\models\fields\related.py:1335
+msgid "Many-to-many relationship"
+msgstr "العديد من العلاقة إلى الرجل"
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\s_env\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ":؟!"
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr "هذه الخانة مطلوبه."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:308
+msgid "Enter a whole number."
+msgstr "أدخل رقمًا كاملاً."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:479
+#: .\s_env\Lib\site-packages\django\forms\fields.py:1260
+msgid "Enter a valid date."
+msgstr "أدخل تاريخ صالح."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:502
+#: .\s_env\Lib\site-packages\django\forms\fields.py:1261
+msgid "Enter a valid time."
+msgstr "أدخل وقتًا صالحًا."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:529
+msgid "Enter a valid date/time."
+msgstr "أدخل تاريخ/وقت صالح."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:563
+msgid "Enter a valid duration."
+msgstr "أدخل مدة صالحة."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:564
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr "يجب أن يكون عدد الأيام بين {min_days} و {max_days}."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:633
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr "لم يتم تقديم أي ملف.تحقق من نوع الترميز على النموذج."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:634
+msgid "No file was submitted."
+msgstr "لم يتم تقديم أي ملف."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:635
+msgid "The submitted file is empty."
+msgstr "الملف المقدم فارغ."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:637
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:642
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr "يرجى إما إرسال ملف أو التحقق من مربع الاختيار الواضح ، وليس كلاهما."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:710
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr "تحميل صورة صالحة.الملف الذي قمت بتحميله إما ليس صورة أو صورة تالفة."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:882
+#: .\s_env\Lib\site-packages\django\forms\fields.py:968
+#: .\s_env\Lib\site-packages\django\forms\models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr "حدد خيارًا صالحًا.٪ (القيمة) S ليست واحدة من الخيارات المتاحة."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:970
+#: .\s_env\Lib\site-packages\django\forms\fields.py:1089
+#: .\s_env\Lib\site-packages\django\forms\models.py:1590
+msgid "Enter a list of values."
+msgstr "أدخل قائمة بالقيم."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:1090
+msgid "Enter a complete value."
+msgstr "أدخل قيمة كاملة."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:1329
+msgid "Enter a valid UUID."
+msgstr "أدخل uuid صالح."
+
+#: .\s_env\Lib\site-packages\django\forms\fields.py:1359
+msgid "Enter a valid JSON."
+msgstr "أدخل JSON صالح."
+
+#. Translators: This is the default suffix added to form field labels
+#: .\s_env\Lib\site-packages\django\forms\forms.py:94
+msgid ":"
+msgstr ":"
+
+#: .\s_env\Lib\site-packages\django\forms\forms.py:230
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr "(الحقل المخفي ٪ (الاسم) s) ٪ (خطأ) s"
+
+#: .\s_env\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+"بيانات الإدارة مفقودة أو تم العبث بها.الحقول المفقودة: ٪ (field_names) s.قد "
+"تحتاج إلى تقديم تقرير الأخطاء إذا استمرت المشكلة."
+
+#: .\s_env\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr "يمسح"
+
+#: .\s_env\Lib\site-packages\django\forms\models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr "يرجى تصحيح البيانات المكررة لنسبة ٪ (الحقل) s."
+
+#: .\s_env\Lib\site-packages\django\forms\models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+"يرجى تصحيح البيانات المكررة لـ ٪ (الحقل) S ، والتي يجب أن تكون فريدة من "
+"نوعها."
+
+#: .\s_env\Lib\site-packages\django\forms\models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+"يرجى تصحيح البيانات المكررة لـ ٪ (field_name) s والتي يجب أن تكون فريدة من "
+"نوعها بالنسبة إلى ٪ (البحث) في ٪ (date_field) s."
+
+#: .\s_env\Lib\site-packages\django\forms\models.py:922
+msgid "Please correct the duplicate values below."
+msgstr "يرجى تصحيح القيم المكررة أدناه."
+
+#: .\s_env\Lib\site-packages\django\forms\models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr "لا تتطابق القيمة المضمنة مع مثيل الأصل."
+
+#: .\s_env\Lib\site-packages\django\forms\models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr "حدد خيارًا صالحًا.هذا الاختيار ليس أحد الخيارات المتاحة."
+
+#: .\s_env\Lib\site-packages\django\forms\models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr "\"٪ (PK) S\" ليست قيمة صالحة."
+
+#: .\s_env\Lib\site-packages\django\forms\utils.py:227
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+"لا يمكن تفسير ٪ (DateTime) s في المنطقة الزمنية ٪ (current_timezone) s ؛قد "
+"تكون غامضة أو قد لا تكون موجودة."
+
+#: .\s_env\Lib\site-packages\django\forms\widgets.py:461
+msgid "Clear"
+msgstr "واضح"
+
+#: .\s_env\Lib\site-packages\django\forms\widgets.py:462
+msgid "Currently"
+msgstr "حالياً"
+
+#: .\s_env\Lib\site-packages\django\forms\widgets.py:463
+msgid "Change"
+msgstr "يتغير"
+
+#: .\s_env\Lib\site-packages\django\forms\widgets.py:800
+msgid "Unknown"
+msgstr "مجهول"
+
+#: .\s_env\Lib\site-packages\django\forms\widgets.py:801
+msgid "Yes"
+msgstr "نعم"
+
+#. Translators: Please do not add spaces around commas.
+#: .\s_env\Lib\site-packages\django\template\defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr "نعم ، لا ، ربما"
+
+#: .\s_env\Lib\site-packages\django\template\defaultfilters.py:903
+#: .\s_env\Lib\site-packages\django\template\defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr "٪ S KB"
+
+#: .\s_env\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr "٪ XSMB"
+
+#: .\s_env\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr "٪ S GB"
+
+#: .\s_env\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr "٪ s السل"
+
+#: .\s_env\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr "٪ S PB"
+
+#: .\s_env\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr "مساءً."
+
+#: .\s_env\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr "أكون."
+
+#: .\s_env\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr "مساءً"
+
+#: .\s_env\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr "أكون"
+
+#: .\s_env\Lib\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr "منتصف الليل"
+
+#: .\s_env\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr "ظهر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr "الاثنين"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr "يوم الثلاثاء"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr "يوم الخميس"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr "جمعة"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr "السبت"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr "الأحد"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr "الاثنين"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr "الثلاثاء"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr "تزوج"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr "الخميس"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr "الجمعة"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr "قعد"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr "شمس"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr "يناير"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr "فبراير"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr "يمشي"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr "أبريل"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr "يمكن"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr "يونيو"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr "يوليو"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr "أغسطس"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr "سبتمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr "أكتوبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr "نوفمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr "ديسمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr "يناير"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr "فبراير"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr "مارس"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr "أبريل"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr "يمكن"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr "يونيو"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr "يوليو"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr "أغسطس"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr "سبتمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr "أكتوبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr "نوفمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr "ديسمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr "يناير."
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr "فبراير"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr "يمشي"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr "أبريل"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr "يمكن"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr "يونيو"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr "يوليو"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr "أغسطس"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr "سبتمبر."
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr "أكتوبر."
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr "نوفمبر."
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr "ديسمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr "يناير"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr "فبراير"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr "يمشي"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr "أبريل"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr "يمكن"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr "يونيو"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr "يوليو"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr "أغسطس"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr "سبتمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr "أكتوبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr "نوفمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr "ديسمبر"
+
+#: .\s_env\Lib\site-packages\django\utils\ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr "هذا ليس عنوان IPv6 صالح."
+
+#: .\s_env\Lib\site-packages\django\utils\text.py:75
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr "٪ (truncated_text) s ..."
+
+#: .\s_env\Lib\site-packages\django\utils\text.py:286
+msgid "or"
+msgstr "أو"
+
+#. Translators: This string is used as a separator between list elements
+#: .\s_env\Lib\site-packages\django\utils\text.py:305
+#: .\s_env\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr "و"
+
+#: .\s_env\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\s_env\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr "مُحرَّم"
+
+#: .\s_env\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr "فشل التحقق من CSRF.طلب الإجهاض."
+
+#: .\s_env\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+"أنت ترى هذه الرسالة لأن موقع HTTPS يتطلب إرسال \"رأس المرجع\" من قبل متصفح "
+"الويب الخاص بك ، ولكن لم يتم إرسال أي منها.هذا الرأس مطلوب لأسباب أمنية ، "
+"لضمان عدم اختطاف المستعرض الخاص بك من قبل أطراف ثالثة."
+
+#: .\s_env\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+"إذا قمت بتكوين المتصفح الخاص بك لتعطيل رؤوس \"المرجع\" ، فيرجى إعادة "
+"تمكينها ، على الأقل لهذا الموقع ، أو لاتصالات HTTPS ، أو لطلبات \"الأصل من "
+"نفس\"."
+
+#: .\s_env\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+"إذا كنت تستخدم علامة <meta name = \"alnovener\" content = \"no-referrer\"> "
+"أو بما في ذلك رأس \"المرجعية السياسية: no-referrer\" ، يرجى إزالتها.تتطلب "
+"حماية CSRF رأس \"المرجع\" للقيام بفحص صارم للمشترك.إذا كنت قلقًا بشأن "
+"الخصوصية ، فاستخدم بدائل مثل <a rel = \"noreferrer\" ...> للحصول على روابط "
+"لمواقع الطرف الثالث."
+
+#: .\s_env\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+"أنت ترى هذه الرسالة لأن هذا الموقع يتطلب ملف تعريف ارتباط CSRF عند إرسال "
+"النماذج.مطلوب ملف تعريف الارتباط هذا لأسباب أمنية ، لضمان عدم اختطاف "
+"المستعرض الخاص بك من قبل أطراف ثالثة."
+
+#: .\s_env\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+"إذا قمت بتكوين متصفحك لتعطيل ملفات تعريف الارتباط ، فيرجى إعادة تمكينها ، "
+"على الأقل لهذا الموقع ، أو لطلبات \"الأصل من نفس\"."
+
+#: .\s_env\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr "مزيد من المعلومات متاح مع Debug = True."
+
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr "لم يحدد سنة"
+
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:64
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:115
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr "تاريخ خارج النطاق"
+
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr "لم يحدد شهر"
+
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr "لم يحدد يوم"
+
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr "لم يحدد أسبوع"
+
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:349
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr "NO ٪ (Verbose_Name_Plural) S المتاحة"
+
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
+msgstr ""
+"Future ٪ (Verbose_name_plural) غير متوفر لأن ٪ (class_name) S.allow_future "
+"خاطئة."
+
+#: .\s_env\Lib\site-packages\django\views\generic\dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr "سلسلة تاريخ غير صالحة \"٪ (datest) s\" المعطى تنسيق \"٪ (التنسيق) s\""
+
+#: .\s_env\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "NO ٪ (ervBOSE_NAME) s وجدت مطابقة الاستعلام"
+
+#: .\s_env\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr "الصفحة ليست \"الأخيرة\" ، ولا يمكن تحويلها إلى int."
+
+#: .\s_env\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr "صفحة غير صالحة (٪ (page_number) s): ٪ (رسالة) s"
+
+#: .\s_env\Lib\site-packages\django\views\generic\list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr "القائمة الفارغة و \"٪ (class_name) S.allow_empty\" خاطئة."
+
+#: .\s_env\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr "فهارس الدليل غير مسموح هنا."
+
+#: .\s_env\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr "\"٪ (المسار) S\" غير موجود"
+
+#: .\s_env\Lib\site-packages\django\views\static.py:68
+#: .\s_env\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\s_env\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr "مؤشر ٪ (الدليل) ق"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr "يعمل التثبيت بنجاح!مبروك!"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr "عرض <a href = \"https://docs.djangoproject.com/en/٪٪(Version)"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+"أنت ترى هذه الصفحة لأن <a href = \"https://docs.djangoproject.com/en/٪٪"
+"(Version)"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr "وثائق Django"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr "الموضوعات ، المراجع ، & amp ؛كيف"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr "البرنامج التعليمي: تطبيق اقتراع"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:227
+msgid "Get started with Django"
+msgstr "ابدأ مع Django"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr "مجتمع Django"
+
+#: .\s_env\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr "قم بتوصيل أو الحصول على المساعدة أو المساهمة"
+
+#~ msgid "Selected size is out of stock."
+#~ msgstr "المقاس المختار غير متوفر في المخزون."
+
+#~ msgid "Home"
+#~ msgstr "الصفحة الرئيسية"
+
+#~ msgid "My cart"
+#~ msgstr "سلتي"
+
+#~ msgid "My order history"
+#~ msgstr "سجل طلباتي"
+
+#~ msgid "Remove"
+#~ msgstr "إزالة"
+
+#, python-format
+#~ msgid "You have a <a href=\"%(url)s\">pending order</a>"
+#~ msgstr "لديك <a href=\"%(url)s\">طلب معلق</a>"
+
+#~ msgid "Checkout"
+#~ msgstr "إتمام الطلب"
+
+#~ msgid "Confirm Your Order"
+#~ msgstr "تأكيد طلبك"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "        You have a <a href=\"%(order_url)s\">pending order</a>\n"
+#~ "      "
+#~ msgstr "لديك <a href = \"٪ (order_url) s\"> ترتيب معلق </a>"
+
+#~ msgid "Confirm order"
+#~ msgstr "تأكيد الأمر"
+
+#~ msgid "No order history"
+#~ msgstr "لا يوجد تاريخ أمر"
+
+#~ msgid "Error verifying reCAPTCHA, please try again."
+#~ msgstr "خطأ التحقق من recaptcha ، يرجى المحاولة مرة أخرى."

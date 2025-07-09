@@ -1,0 +1,13 @@
+<p>{% trans "Dear" %} {{ order.last_name }} {{ order.first_name }},</p>
+
+<p>{% trans "Thank you for placing your order with us! We have received your" %} 
+<a href="{{ order_link }}">{% trans "order" %} #{{ order.id }}</a> {% trans "from" %} 
+<a href="{{ store_url }}">{{ store_url }}</a>.</p>
+
+<p>{% trans "To ensure a smooth delivery process, our team will contact you shortly via phone to confirm your order details" %}.</p>
+
+<p>{% trans "If you have any questions or need to update your contact information, feel free to reply to this email or call this phone number: 69420 %}.</p>
+
+<p>{% trans "Best regards %},<br>
+<strong>Weeb store</strong><br>
+<a href="{{ store_url }}">{{ store_url }}</a></p>
