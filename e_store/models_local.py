@@ -13,7 +13,7 @@ class Item(models.Model):
 
 class Display(models.Model):
 	image = models.ImageField(upload_to='display_category/')
-	type = models.CharField(max_length=50, choices=[('t_shirt', 'T_shirt'), ('pant', 'pant')], unique=True)
+	type = models.CharField(max_length=50, choices=[('t_shirt', 'T_shirt'), ('pant', 'Pant')], unique=True)
 
 	def __str__(self):
 		return self.type

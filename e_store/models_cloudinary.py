@@ -14,7 +14,7 @@ class Item(models.Model):
 
 class Display(models.Model):
 	image = CloudinaryField('image') 
-	type = models.CharField(max_length=50, choices=[('t_shirt', 'T_shirt'), ('pant', 'pant')], unique=True)
+	type = models.CharField(max_length=50, choices=[('t_shirt', 'T_shirt'), ('pant', 'Pant')], unique=True)
 
 	def __str__(self):
 		return self.type
