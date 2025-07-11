@@ -29,7 +29,6 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG = True
 
 #ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv()) 
 ALLOWED_HOSTS = []
@@ -61,7 +60,7 @@ INSTALLED_APPS = [
 # Cloudinary
 if not DEBUG:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': config('CLOUDINARY_API_KEY'),
@@ -129,15 +128,6 @@ elif not DEBUG:
         config('DATABASE_URL'), # postgresql internal url for production, external url for local developpement 
     )
 }
-DATABASES = {
-    'default': dj_database_url.parse(
-        config('DATABASE_URL'), # postgresql internal url for production, external url for local developpement 
-    )
-}
-
-
-
-
 
 
 # Password validation
