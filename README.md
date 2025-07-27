@@ -20,7 +20,7 @@ E_store is a Django-powered e_commerce application created as a learning project
 # Installation Instructions
 - Clone the repository:
 git clone <repository-url>
-cd blog
+cd store
 
 - Create a virtual environment:
 python -m venv venv
@@ -35,4 +35,4 @@ Ensure the following environment variables are set:
 -	DEBUG: Set to True for development, False for production.
 -	DATABASE_URL: Connection string for the PostgreSQL database in production.
 -	EMAIL_HOST_USER and EMAIL_HOST_PASSWORD: Credentials for the email backend.
--	RECAPTCHA_SITE_KEY and RECAPTCHA_SECRET_KEY: reCAPTCHA credentials.
+
