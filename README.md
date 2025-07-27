@@ -1,4 +1,4 @@
-# BlogPost
+# E_store
 E_store is a Django-powered e_commerce application created as a learning project to deepen understanding of web development using the Django framework.
 
 # Features
