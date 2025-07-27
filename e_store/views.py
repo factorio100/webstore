@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Item, CartItem, Cart, Inventory, Order, OrderItem, BlackListedPhone, Display, Shipping
+from .models import Item, CartItem, Cart, Inventory, Order, OrderItem, BlackListedPhone, Display, Shipping, Size, ItemType
 from .forms import AddToCartForm, OrderInformationsForm, CartItemForm
 from django.contrib import messages
 from datetime import timedelta
@@ -53,46 +53,35 @@ def check_pending_order(order):
 		raise Http404
 
 def home(request):
-	#display_t_shirt = Display.objects.filter(type="t_shirt").first()
-	#display_pant = Display.objects.filter(type="pant").first()
 	displays = Display.objects.all()
 	displays_urls = []
 	for display in displays:
-		url = reverse(f"e_store:{display.type}s")
+		url = reverse('e_store:items', args=[display.type.slug])
 		displays_urls.append((display, url))
-
+	
 	context = {
 		'displays_urls': displays_urls,
-		#'display_t_shirt': display_t_shirt, 
-		#'display_pant': display_pant,
 		'title': 'home',
 		# Fix 'English' in the dropdown menu being translated
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}
+	
 	return render(request, 'e_store/home.html', context)
 
-def t_shirts(request):
-	t_shirts = Item.objects.filter(type='t_shirt')
-	context = {
-		't_shirts': t_shirts,
-		'title': 'T shirts',
-		# Fix 'English' in the dropdown menu being translated
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
-	}
-	return render(request, 'e_store/t_shirts.html', context)
+def items(request, item_type_slug):
+	item_type = get_object_or_404(ItemType, slug=item_type_slug)
+	items = Item.objects.filter(type=item_type)
 
-def pants(request):
-	pants = Item.objects.filter(type='pant')
 	context = {
-		'pants': pants,
-		'title': 'Pants',
-		# Fix 'English' in the dropdown menu being translated
+		'items': items,
+		'title': item_type,
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}
-	return render(request, 'e_store/pants.html', context)
+	
+	return render(request, 'e_store/items.html', context)
+
 
 def item(request, item_id):
 	item = get_object_or_404(Item, id=item_id)
@@ -106,7 +95,10 @@ def item(request, item_id):
 	if request.method == 'POST':
 		# Display quantity in cart message when pressing size button  
 		selected_size = request.POST.get('size')
-		inventory = Inventory.objects.filter(size=selected_size, type=item.type).first()
+		# Use filter() to avoid handling missing objects
+		item_type = ItemType.objects.filter(type=item.type).first()
+		size = Size.objects.filter(name=selected_size).first()
+		inventory = Inventory.objects.filter(size=size, type=item_type).first()
 		cart_item = CartItem.objects.filter(item=item, inventory=inventory, cart=cart).first() 
 
 		# Handle + - buttons
@@ -117,18 +109,7 @@ def item(request, item_id):
 			quantity = None
 		
 		if request.POST.get('adjust_quantity') == 'increase':
-			#if inventory:
-				# + button wont increase quantity when cart item quantity reaches available inventory 
-			#	if cart_item and quantity + cart_item.quantity == available_inventory(inventory):
-			#		pass
-
-			#	else:
-					# Set quantity max_value to available inventory
-					quantity = min(quantity + 1, available_inventory(inventory))
-
-			# Set quantity max_value to 1 if no size is selected
-			#else:
-			#	quantity = 1
+			quantity = min(quantity + 1, available_inventory(inventory))
 
 		elif request.POST.get('adjust_quantity') == 'decrease':
 			quantity = max(quantity - 1, 1) 
@@ -138,14 +119,13 @@ def item(request, item_id):
 		if selected_size != session_selected_size:  # Compare current selected size with the previous session
 			quantity = 1
 		request.session['selected_size'] = request.POST.get('size')  # Selected size session update
-
+		
 		form = AddToCartForm(
 			data={**request.POST.dict(), 'quantity': quantity},  
 			item=item,
 			selected_size=selected_size,
 			cart=cart
 		)		
-
 		# Disable + - buttons
 		if 'add_to_cart' not in request.POST: 
 			if form.is_valid():
@@ -174,8 +154,14 @@ def item(request, item_id):
 			if form.is_valid():
 				size = form.cleaned_data['size']
 				quantity = form.cleaned_data['quantity']
+
 				try:
-					inventory = Inventory.objects.get(type=item.type, size=size)
+					size = Size.objects.get(name=selected_size)
+				except Size.DoesNotExist:
+					messages.error(request, _("The selected size is unavailable for now, please select another size."))
+				
+				try:
+					inventory = Inventory.objects.get(type=item_type, size=size)
 					cart_item, created = CartItem.objects.get_or_create(
 						item=item,
 						item_name=item.name,
@@ -194,23 +180,24 @@ def item(request, item_id):
 
 				except Inventory.DoesNotExist:
 					messages.error(request, _("This item is out of stock."))
-			else:
-				print(f"invalid form, {quantity}")
+			#else:
+			#	print(f"invalid form, {quantity}")
 	else:	
 		form = AddToCartForm(item=item, selected_size=selected_size, cart=cart)
-
+		size_choices = form.fields['size'].choices
+		print(f"size choices: {size_choices}")
 	inventories = Inventory.objects.filter(type=item.type)
 
 	context = {
 		'item': item,
 		'form': form,
-		'sizes_with_status': form.sizes_with_status,
+		'sizes_quantities': form.sizes_quantities,
 		'in_stock': inventories.filter(quantity__gt=0).exists(),
 		'cart_item': cart_item,
 		'increase_button_disabled': increase_button_disabled,
 		'decrease_button_disabled': decrease_button_disabled,
 		'selected_size': selected_size,
-		'items_url': reverse(f"e_store:{item.type}s"),
+		'items_url': reverse('e_store:items', args=[item.type.slug]),
 		'title': 'Item',
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
@@ -235,31 +222,35 @@ def cart(request):
 
 	if request.method == 'POST':  
 		cart_item_id = request.POST.get('cart_item_id')
-		adjust_quantity = request.POST.get('adjust_quantity')
+		# Quantity change
+		adjust_quantity = request.POST.get('adjust_quantity')  # Change from - + buttons
+		manual_quantity_update = request.POST.get('quantity')  # Onchange form submission
+		
 		delete_cart_item = request.POST.get('delete_cart_item')
 		
 		try:
 			cart_item = CartItem.objects.get(id=cart_item_id)
+			max_available = available_inventory(cart_item.inventory)
+			
 			if adjust_quantity: 
 				# + - buttons
 				quantity = cart_item.quantity
-				max_available = available_inventory(cart_item.inventory)
-
 				if adjust_quantity == 'increase':
 					new_quantity = min(quantity + 1, max_available)	
-					form = CartItemForm({'quantity': new_quantity}, instance=cart_item)
-					if form.is_valid():
-						form.save()
-
-						if new_quantity == max_available:
-							form.add_error('quantity', "Max quantity.")
-							error_form = form
 
 				elif adjust_quantity == 'decrease':
 					new_quantity = max(quantity - 1, 1)
-					form = CartItemForm({'quantity': new_quantity}, instance=cart_item)
-					if form.is_valid():
-						form.save()
+
+			elif manual_quantity_update:
+				new_quantity = manual_quantity_update
+
+			form = CartItemForm({'quantity': new_quantity}, instance=cart_item)
+			if form.is_valid():
+				form.save()
+				new_quantity = form.cleaned_data['quantity']
+				if new_quantity == max_available:
+					form.add_error('quantity', "Max quantity.")
+					error_form = form
 
 			elif delete_cart_item:
 				# Remove button
@@ -289,7 +280,6 @@ def cart(request):
 			Q(quantity__gt=F('inventory__quantity')) | Q(inventory__isnull=True) | Q(item__isnull=True)
 		),
 		'title': 'Cart',
-		# Fix 'English' in the dropdown menu being translated
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}
@@ -317,14 +307,14 @@ def order_informations(request):
 		# Prefill the form
 		latest_order = Order.objects.filter(cart=cart).latest('created_at')
 		initial_data = {
-				'last_name': latest_order.last_name,
-				'first_name': latest_order.first_name,
-				'email': latest_order.email,
-				'phone_number': latest_order.phone_number,
-				'address': latest_order.address,
-				'city': latest_order.city,
-				'postal_code': latest_order.postal_code 
-			}
+			'last_name': latest_order.last_name,
+			'first_name': latest_order.first_name,
+			'email': latest_order.email,
+			'phone_number': latest_order.phone_number,
+			'address': latest_order.address,
+			'city': latest_order.city,
+			'postal_code': latest_order.postal_code 
+		}
 				
 	except Order.DoesNotExist:
 		initial_data = None		
@@ -353,7 +343,6 @@ def order_informations(request):
 	context = {
 		'form': form,
 		'title': 'Shipping infos',
-		# Fix 'English' in the dropdown menu being translated
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}
@@ -451,7 +440,6 @@ def order(request, order_id):
 	context = {
 		'order': order,
 		'title': 'Order',
-		# Fix 'English' in the dropdown menu being translated
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}
@@ -468,7 +456,6 @@ def order_success(request, order_id):
 	context = {
 		'order': order,
 		'title': 'Order success message',
-		# Fix 'English' in the dropdown menu being translated
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}
@@ -480,7 +467,6 @@ def order_history(request):
 	context = {
 		'orders': orders,
 		'title': 'Order history',
-		# Fix 'English' in the dropdown menu being translated
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}

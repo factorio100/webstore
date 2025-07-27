@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Item, Inventory, CartItem, Cart, Order, Shipping, OrderItem, BlackListedPhone, Display
+from .models import Item, Inventory, CartItem, Cart, Order, Shipping, OrderItem, BlackListedPhone, Display, Size
 from django.utils.html import format_html
 from django.db.models import Q, F
+from .utils import ItemType
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'image_tag')  # Add 'image_tag' to display the image
+    list_display = ('name', 'type', 'price', 'image_tag')  
     readonly_fields = ('image_tag',)  # Makes image preview readonly in the detail view
 
     def image_tag(self, obj):
@@ -13,7 +14,7 @@ class ItemAdmin(admin.ModelAdmin):
         
     image_tag.short_description = 'Image Preview' # name of the field
 
-
+        
 @admin.register(Display)
 class DisplayAdmin(admin.ModelAdmin):
     list_display = ('type', 'image_tag')
@@ -23,16 +24,24 @@ class DisplayAdmin(admin.ModelAdmin):
         
     image_tag.short_description = 'Image Preview'
 
-    def formfield_for_choice_field(self, db_field, request, **kwargs):
-        """Prevent admin from selecting a type if it already exists."""
-        field = super().formfield_for_choice_field(db_field, request, **kwargs)
-
-        if db_field.name == "type": 
-            displays = self.model.objects.all()
-            display_types = [display.type for display in displays]
-            field.choices = [(value, label) for value, label in field.choices if value not in display_types]
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        """Remove item type from type choices if it's already in use."""
+        if db_field.name == "type":
+            # Get the current instance being edited (if any)
+            obj_id = request.resolver_match.kwargs.get('object_id')
             
-        return field
+            # Get all ItemType IDs already in use by other Displays
+            used_type_ids = Display.objects.exclude(pk=obj_id).values_list('type_id', flat=True)
+            
+            # Filter the queryset to exclude already used ItemTypes
+            kwargs['queryset'] = ItemType.objects.exclude(id__in=used_type_ids)
+            
+            # For existing instance, include it's current type in the queryset
+            if obj_id:
+                current_display = Display.objects.get(pk=obj_id)
+                kwargs['queryset'] = kwargs['queryset'] | ItemType.objects.filter(id=current_display.type_id)
+        
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(BlackListedPhone)
@@ -58,7 +67,7 @@ class CartItemInline(admin.TabularInline):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ("id", "total_price", "created_at", "updated_at", "total_price")  
+    list_display = ("id", "total_price", "created_at", "updated_at")  
     readonly_fields = ("id", "total_price", "created_at", "updated_at", "total_price")
     inlines = [CartItemInline]  # Attach CartItemInline
 
@@ -78,7 +87,6 @@ class CartItemAdmin(admin.ModelAdmin):
 class ShippingInline(admin.TabularInline):
     model = Shipping
     extra = 0
-    fields = ("order", "tracking_number", "estimated_delivery")
     readonly_fields = ("order",)
     can_delete = False
     
@@ -152,28 +160,14 @@ class OrderAdmin(admin.ModelAdmin):
                 pass  
 
         return field
-
-    def clean(self):
-        # Check if inventory and item are available before printing order
-        if self.status == "printing": 
-            if self.orderitem_set.filter(Q(quantity__gt=F('inventory__quantity')) | Q(inventory__isnull=True)):
-                raise ValidationError(_(f"{order_item.item.name} size {order_item.inventory.size} is out of stock."))
-                
-            elif self.orderitem_set.filter(item__isnull=True):
-                raise ValidationError(_(f"{order_item.item_name} is no longer available."))        
+        
 
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ("item", "inventory", "quantity", "total_price", "order")
     
-    readonly_fields = ("item", "inventory", "quantity", "total_price", "order")
-    
-    fieldsets = (
-        (None, {
-            "fields": ("item", "inventory", "quantity", "total_price", "order")
-        }),
-    )
+    readonly_fields = ("item_name" ,"item", "inventory", "quantity", "total_price", "order")
 
     def image_tag(self, obj):
         return format_html('<img src="{}" width="50" height="50" />', obj.image.url)
@@ -190,17 +184,11 @@ class ShippingAdmin(admin.ModelAdmin):
 
     readonly_fields = ("order",)
 
-    fieldsets = (
-        (None, {
-            "fields": ("order", "tracking_number", "estimated_delivery")
-        }),
-    )
-
     def has_add_permission(self, request):
         return False
 
 
 admin.site.register(Inventory)
-
-
+admin.site.register(ItemType)
+admin.site.register(Size)
 

@@ -9,7 +9,7 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from django.utils.translation import gettext_lazy as _
 from cloudinary.models import CloudinaryField
 from django.conf import settings
-from .utils import available_inventory
+from .utils import available_inventory, ItemType
 
 
 # Allow letters (including accents), spaces, hyphens, apostrophes
@@ -19,47 +19,42 @@ name_validator = RegexValidator(
 )
 
 
+class Size(models.Model):
+    name = models.CharField(max_length=10, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Inventory(models.Model):
-	CATEGORY_CHOICES = [
-		('t_shirt', 'T_shirt'),
-		('pant', 'Pant'),
-	]
-
-	SIZE_CHOICES = [
-		('S', 'Small'),
-		('M', 'Medium'),
-		('L', 'Large'),
-		('XL', 'Extra large'),
-		('XXL', 'Extra extra large')
-	]
-
-	type = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-	size = models.CharField(max_length=10, choices=SIZE_CHOICES)
+	type = models.ForeignKey(ItemType, on_delete=models.CASCADE)
+	size = models.ForeignKey(Size, on_delete=models.CASCADE)
 	quantity = models.PositiveIntegerField(default=0)
 
 	class Meta:
-		constraints = [models.UniqueConstraint(fields=['type', 'size'], name='unique_type_size')]  # Prevent duplicate records
+		constraints = [
+			models.UniqueConstraint(fields=['type', 'size'], name='unique_type_size'),  # Prevent duplicate records
+		]  
 		verbose_name_plural = 'inventories'
 
 	def __str__(self):
 		return f"{self.type} - {self.size}: {self.quantity} in stock"
 	
 	def save(self, *args, **kwargs):
-		# Decrease cart items quantities by setting them to the new available inventory  
+		"""Updating cart items max quantities when the inventory decreases."""  
 		inventory = Inventory.objects.filter(id=self.id).first()
 		if inventory:
 			# Check if stock decreases
-			if self.quantity < inventory.quantity:  # Current quantity < old quantity
-				cart_items = CartItem.objects.filter(inventory=self, quantity=inventory.quantity) 
-				for cart_item in cart_items:
-					# Prevent setting cart items quantities to 0 
-					if self.quantity > 0:					
-						cart_item.quantity = self.quantity		
-					# Set cart item quantity to 1 if inventory is 0 
-					elif self.quantity == 0:
-						cart_item.quantity = 1
+			if self.quantity < inventory.quantity:  # New quantity < old quantity
+				cart_items = CartItem.objects.filter(inventory=inventory, quantity=inventory.quantity) 
+				# Prevent setting cart items quantities to 0 
+				if self.quantity > 0:					
+					cart_items.update(quantity=self.quantity)
 
-					cart_item.save()
+				# Keep cart item quantity to 1 when inventory is 0, 
+				# in the templates the cart item will be disabled until the inventory is available again 
+				elif self.quantity == 0:
+					cart_items.update(quantity=1)
 
 		super().save(*args, **kwargs)
 
@@ -171,9 +166,6 @@ class Order(models.Model):
 		validators=[RegexValidator(r"^\d{4,10}$", "Enter a valid postal code")],
 	)
 	ip_address = models.GenericIPAddressField(null=True, blank=True)  # To prevent spam
-
-	def __str__(self):
-		return f"Order {self.id} - {self.status}"
 
 	def total_price(self):
 		return self.orderitem_set.aggregate(
@@ -294,8 +286,9 @@ class OrderItem(models.Model):
 	total_price = models.DecimalField(max_digits=10, decimal_places=2)  
 	order = models.ForeignKey("Order", on_delete=models.CASCADE)
 
-	def __str__(self):
-		return f"{self.quantity}x {self.inventory.type} ({self.inventory.size}) in Order {self.order.id}"  
+	#def __str__(self):
+	#	return f"{self.quantity}x {self.inventory.type} ({self.inventory.size}) in Order {self.order.id}"  
+
 
 	def inventory_is_available(self):
 		""" 
@@ -332,15 +325,17 @@ class CartItem(models.Model):
 		]
 	
 	def total_price(self):
-		return self.quantity * self.item.price
+		if self.item:
+			return self.quantity * self.item.price
+		return None
 
 	def inventory_is_available(self):
 		""" 
 		Display "out of stock" message, 
-		cart item will be available again when inventory is restocked, 
+		cart item will be available again when inventory is restocked. 
 		"""
-		return self.inventory and self.quantity <= available_inventory(self.inventory)
-
+		#return self.inventory and self.quantity <= available_inventory(self.inventory)
+		return True
 	def clean(self):
 		if not self.item:
 			raise ValidationError("Cart item must be associated with a valid item.")

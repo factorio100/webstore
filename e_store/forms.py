@@ -1,9 +1,9 @@
 from django import forms
-from .models import Inventory, CartItem, Order, BlackListedPhone, OrderItem
+from .models import Inventory, CartItem, Order, BlackListedPhone, OrderItem, Size
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Q, F, Sum
-from .utils import available_inventory
+from .utils import available_inventory, ItemType
 
 class AddToCartForm(forms.Form):
 	size = forms.ChoiceField(
@@ -26,18 +26,23 @@ class AddToCartForm(forms.Form):
 		self.item = item
 		self.selected_size = selected_size
 		self.cart = cart
+		self.item_type = ItemType.objects.get(type=item.type)
+		self.size = Size.objects.filter(name=selected_size).first()
 
-		inventories = Inventory.objects.filter(type=item.type)
-		size_quantities = {inv.size: inv.quantity for inv in inventories}
-		self._sizes_with_status = [(size, size, qty > 0) for size, qty in size_quantities.items()]  # items turn dictionary {size: quant} into tuple (size, quant)
+		inventories = Inventory.objects.filter(type=self.item_type)
+		
+		sizes_quantities = {inv.size: inv.quantity for inv in inventories}
 
-		# Only include available sizes in form choices for the backend, 
-		# the template will use sizes_with_status() to shows all the sizes: unavailable sizes are crossed/greyed 
-		choices = [(size, label) for size, label, available in self._sizes_with_status if available]
+		self._sizes_quantities = [(size, size, quantity) for size, quantity in sizes_quantities.items()]  # items() turn dictionary {size: quant} into tuple (size, quant)  	
+
+		# Only available sizes are inclued in size field choices, 
+		# the frontend uses sizes_with_status() include all the sizes: unavailable sizes are crossed/greyed 
+		choices = [(size, size) for size, size, quantity in self._sizes_quantities if quantity > 0]
+
 		self.fields['size'].choices = choices
-
-		inventory = Inventory.objects.filter(type=item.type, size=selected_size).first()
+        
 		# Set max_value to available inventory 
+		inventory = Inventory.objects.filter(type=self.item_type, size=self.size).first()
 		if inventory:
 			cart_item = CartItem.objects.filter(item=item, inventory=inventory, cart=cart).first()
 			if cart_item:  
@@ -48,7 +53,8 @@ class AddToCartForm(forms.Form):
 
 		else: 
 			max_quantity = 1
-		# Prevent manually entering values: quantity > inventory and quantiy < 0,
+		
+		# Prevent manually entering: quantity > inventory, or quantity < 0,
 		# this doesn't set constraints on - + buttons
 		self.fields['quantity'].widget.attrs.update({
 			'class': 'form-control text-center',
@@ -57,15 +63,16 @@ class AddToCartForm(forms.Form):
 		})
 
 	@property
-	def sizes_with_status(self):
-		return self._sizes_with_status
+	def sizes_quantities(self):
+		"""Passed to the template via view context."""
+		return self._sizes_quantities
 
 	def clean(self):
 		cleaned_data = super().clean()
 		size = self.cleaned_data.get('size')
 		quantity = self.cleaned_data.get('quantity')
 
-		inventory = Inventory.objects.filter(type=self.item.type, size=size).first()
+		inventory = Inventory.objects.filter(type=self.item_type, size=self.size).first()
 		if not inventory:  # Prevent AttributeError: 'NoneType' object has no attribute 'quantity', + button runs: quantity > inventory.quantity 
 			return cleaned_data
 
@@ -115,12 +122,12 @@ class CartItemForm(forms.ModelForm):
 		except AttributeError:
 			max_quantity = 1
 			
-		# Prevent manually entering values: quantity > inventory or quantiy < 1,
+		# Prevent manually entering: quantity > inventory, or quantity < 1,
 		# this doesn't set constraints on - + buttons
 		self.fields['quantity'].widget.attrs.update({
 			'class': 'form-control text-center',
 			'max': max_quantity,
-			'oninput': 'if (this.value < 1) this.value = 0; this.value = Math.min(this.value, this.max)',
+			'oninput': 'if (this.value < 0) this.value = 0; this.value = Math.min(this.value, this.max)',
 			'onchange': 'this.form.submit()'
 		})
 

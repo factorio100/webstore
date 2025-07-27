@@ -58,20 +58,20 @@
             {% endif %}
           </div>
 
-          <!-- Hidden input for selected size -->
+          <!-- Hidden input for submitting size value -->
           {% if selected_size %}
             <input type="hidden" name="size" value="{{ selected_size }}">
           {% endif %}
           <!-- Size selection -->
           <div class="mb-3">
             <label class="form-label"><strong>Size:</strong></label><br>
-            {% for size, label, available in sizes_with_status %}
-              {% if available %}
+            {% for size, label, quantity in sizes_quantities %}
+              {% if quantity > 0 %}
                 <button
                   type="submit"
                   name="size"
                   value="{{ size }}"
-                  class="btn {% if selected_size == size %}btn-success{% else %}btn-outline-success{% endif %} size-option"
+                  class="btn {% if selected_size == size|stringformat:'s' %}btn-success{% else %}btn-outline-success{% endif %} size-option"
                   style="margin: 2px;">
                   {{ label }}
                 </button>
@@ -84,6 +84,7 @@
                 </button>
               {% endif %}
             {% endfor %}
+            
             {% if form.errors.size %}
               <!-- Remove bullet point from error message -->
               {% for error in form.errors.size %}
