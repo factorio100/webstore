@@ -73,9 +73,26 @@ def items(request, item_type_slug):
 	item_type = get_object_or_404(ItemType, slug=item_type_slug)
 	items = Item.objects.filter(type=item_type)
 
+	# Sort items for GET request
+	session_sort = request.session.get('session_sort')
+	if session_sort:
+		items = items.order_by(session_sort)
+
+	# Sort items for POST request
+	if request.method == 'POST':
+		sort = request.POST.get('sort')
+		items = items.order_by(sort) 
+		request.session['session_sort'] = sort
+		session_sort = request.session.get('session_sort')
+		print(f"sort: {sort}")
+
+	print(f"session: {session_sort}")
+	
 	context = {
 		'items': items,
 		'title': item_type,
+		'fields': [('name', 'name'), ('price', 'price (lowest)'), ('-price', 'price (highest)')],
+		'session_sort': session_sort,
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}
@@ -180,12 +197,11 @@ def item(request, item_id):
 
 				except Inventory.DoesNotExist:
 					messages.error(request, _("This item is out of stock."))
-			#else:
-			#	print(f"invalid form, {quantity}")
+	
 	else:	
 		form = AddToCartForm(item=item, selected_size=selected_size, cart=cart)
 		size_choices = form.fields['size'].choices
-		print(f"size choices: {size_choices}")
+
 	inventories = Inventory.objects.filter(type=item.type)
 
 	context = {
