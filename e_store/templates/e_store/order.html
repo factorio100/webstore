@@ -16,10 +16,10 @@
             <button type="submit" name="confirm_order" value="{{ order.id }}" class="btn btn-primary">
               {% trans "Confirm Order" %}
             </button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
+              {% trans "Cancel order" %}
+            </button>
           </form>
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
-            {% trans "Cancel order" %}
-          </button>
         </div>
 
       {% elif order.status == "confirmed" %}
@@ -41,7 +41,17 @@
 
 
 {% block content %}
-  <div class="d-flex justify-content-between">
+  {% if order.status == 'canceled' and not order.orderitem_set.all %}
+    <h2>Shipping infos</h2>
+    <div class="pt-1 pb-1">
+      <h4>{% trans "First Name" %}: {{ order.first_name }}</h4>
+      <h4>{% trans "Last Name" %}: {{ order.last_name }}</h4>
+      <h4>{% trans "Email" %}: {{ order.email }}</h4>
+      <h4>{% trans "Phone" %}: {{ order.phone_number }}</h4>
+      <h4>{% trans "Address" %}: {{ order.address }}, {{ order.city }}</h4>
+    </div>
+  {% else %}
+    <div class="d-flex justify-content-between">
     <div>
       {% if order.status == 'pending' %}
         <!-- Use cart_item if order status is pending -->
@@ -125,7 +135,8 @@
         {% endif %}
       </div>
     </div>
-  </div>
+    </div>
+  {% endif %}
 {% endblock content %}
 
 
