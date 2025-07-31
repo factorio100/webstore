@@ -28,8 +28,8 @@
       {% for item in items %}
         <div class="m-2 text-center">
           <a href="{% url 'e_store:item' item.id %}">
-            <div class="card" style="width: 200px; height: 200px;">
-              <img src="{{ item.image.url }}" class="card-img-top" style="width: 200px; height: 200px; object-fit: cover;">
+            <div class="card" style="width: 200px; height: 200px; overflow: hidden;">
+              <img src="{{ item.image.url }}" style="width: 200px; height: 200px; object-fit: cover;">
             </div>
           </a>
           <h5 class="mt-2 mb-0">{{ item.name }}</h5>
