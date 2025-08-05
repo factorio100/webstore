@@ -367,14 +367,20 @@ def create_order(request):
 def edit_order_shipping(request, order_id):
 	order = check_order_owner(request, order_id)
 	check_pending_order(order)
+	cart_id = request.session.get('session_cart_id')
+	try:
+		cart = Cart.objects.get(id=cart_id)
+	except Cart.DoesNotExist:
+		messages.error("There has been a problem.")
+		return redirect('e_store:cart')
 
 	if request.method == 'POST':
-		form = OrderForm(instance=order, data=request.POST)
+		form = OrderForm(cart, instance=order, data=request.POST)
 		if form.is_valid():
 			form.save()
 			return redirect("e_store:order", order.id)
 	else:
-		form = OrderForm(instance=order)
+		form = OrderForm(cart, instance=order)
 
 	context = {
 		'form': form,
