@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Item, CartItem, Cart, Inventory, Order, OrderItem, BlackListedPhone, Display, Shipping, Size, ItemType
-from .forms import AddToCartForm, OrderInformationsForm, CartItemForm
+from .forms import AddToCartForm, OrderForm, CartItemForm
 from django.contrib import messages
 from datetime import timedelta
 from django.utils import timezone
@@ -302,7 +302,7 @@ def cart(request):
 
 	return render(request, 'e_store/cart.html', context) 
 
-def order_informations(request):
+def create_order(request):
 	cart = cart_get_create(request)
 	
 	# Block access to the page if cart is empty, or if there is a pending order 
@@ -337,9 +337,9 @@ def order_informations(request):
 	
 	if request.method == 'POST':
 		if initial_data:
-			form = OrderInformationsForm(cart, initial=initial_data, data=request.POST)		
+			form = OrderForm(cart, initial=initial_data, data=request.POST)		
 		else:
-			form = OrderInformationsForm(cart, data=request.POST)		
+			form = OrderForm(cart, data=request.POST)		
 	
 		if form.is_valid():  # This also call model.full_clean()
 			order = form.save(commit=False)
@@ -352,9 +352,9 @@ def order_informations(request):
 	
 	else:
 		if initial_data:		
-			form = OrderInformationsForm(cart, initial=initial_data)		
+			form = OrderForm(cart, initial=initial_data)		
 		else:
-			form = OrderInformationsForm(cart)
+			form = OrderForm(cart)
 
 	context = {
 		'form': form,
@@ -362,25 +362,28 @@ def order_informations(request):
 		'LANGUAGES': settings.LANGUAGES,
 		'LANGUAGE_CODE': get_language(),
 	}
-	return render(request, 'e_store/order_informations.html', context)
+	return render(request, 'e_store/create_order.html', context)
 
-def edit_order_informations(request, order_id):
+def edit_order_shipping(request, order_id):
 	order = check_order_owner(request, order_id)
 	check_pending_order(order)
+
 	if request.method == 'POST':
-		form = OrderInformationsForm(cart, instance=order, data=request.POST)
+		form = OrderForm(instance=order, data=request.POST)
 		if form.is_valid():
 			form.save()
 			return redirect("e_store:order", order.id)
 	else:
-		form = OrderInformationsForm(cart, instance=order)
+		form = OrderForm(instance=order)
 
 	context = {
 		'form': form,
 		'title': 'Edit shipping',
+		'LANGUAGES': settings.LANGUAGES,
+		'LANGUAGE_CODE': get_language()
 	}
 
-	return render(request, "e_store/edit_order_informations.html")
+	return render(request, "e_store/edit_order_shipping.html", context)
 
 
 def order(request, order_id):

@@ -3,12 +3,11 @@
 {% load i18n %}
 
 {% block page_header %}
-  <h1>{% trans "Shipping informations" %}</h1>
+  <h1>{% trans "Edit Shipping informations" %}</h1>
 {% endblock page_header %}
 
 {% block content %}
-    <form method="post" class="mb-5">
-      {% csrf_token %}
+    <form method="post">
       {% csrf_token %}
       {% for field in form %}
         <div class="mb-3">
@@ -20,8 +19,6 @@
         </div>
       {% endfor %}
 
-      <button type="submit"  class="btn btn-primary">{% trans "Continue" %}</button>
+      <button type="submit"  class="btn btn-primary">{% trans "Save and continue" %}</button>
     </form>
-
-
 {% endblock content %}

@@ -147,14 +147,14 @@ class CartItemForm(forms.ModelForm):
 
  
 
-class OrderInformationsForm(forms.ModelForm):	
+class OrderForm(forms.ModelForm):	
 	class Meta:
 		model = Order
 		fields = ['first_name', 'last_name', 'email', 'phone_number', 'address', 'city', 'postal_code']
 
-	def __init__(self, cart, *args, **kwargs):
-		self.cart = cart
+	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
+		self.cart = self.instance.cart
 		# Applying bootstrap
 		for field_name, field in self.fields.items():
 			field.widget.attrs['class'] = 'form-control'

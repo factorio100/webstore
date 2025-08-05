@@ -131,7 +131,7 @@
           <h4>{% trans "Address" %}: {{ order.address }}, {{ order.city }}</h4>
         </div>
         {% if order.status == "pending" %}
-          <a href="{% url 'e_store:edit_order_informations' order.id %}" class="btn btn-outline-secondary">Edit infos</a>
+          <a href="{% url 'e_store:edit_order_shipping' order.id %}" class="btn btn-outline-secondary">Edit infos</a>
         {% endif %}
       </div>
     </div>
