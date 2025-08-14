@@ -5,11 +5,11 @@ from django.contrib import messages
 from datetime import timedelta
 from django.utils import timezone
 from django.http import HttpResponseForbidden, Http404
-from django.utils.translation import gettext as _, get_language
-from django.conf import settings
+from django.utils.translation import gettext as _
 from django.urls import reverse
 from django.db.models import Q, F, Sum
 from .utils import available_inventory
+
 
 def get_user_ip(request):
     # Check for IP address in the 'X-Forwarded-For' header (used when behind a proxy)
@@ -62,9 +62,8 @@ def home(request):
 	context = {
 		'displays_urls': displays_urls,
 		'title': 'home',
-		# Fix 'English' in the dropdown menu being translated
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
+		
+		
 	}
 	
 	return render(request, 'e_store/home.html', context)
@@ -73,28 +72,25 @@ def items(request, item_type_slug):
 	item_type = get_object_or_404(ItemType, slug=item_type_slug)
 	items = Item.objects.filter(type=item_type)
 
-	# Sort items for GET request
+	# Sort items GET request
 	session_sort = request.session.get('session_sort')
 	if session_sort:
 		items = items.order_by(session_sort)
 
-	# Sort items for POST request
+	# Sort items POST request
 	if request.method == 'POST':
 		sort = request.POST.get('sort')
 		items = items.order_by(sort) 
 		request.session['session_sort'] = sort
-		session_sort = request.session.get('session_sort')
-		print(f"sort: {sort}")
-
-	print(f"session: {session_sort}")
+		session_sort = request.session.get('session_sort')	
 	
 	context = {
 		'items': items,
 		'title': item_type,
-		'fields': [('name', 'name'), ('price', 'price (lowest)'), ('-price', 'price (highest)')],
-		'session_sort': session_sort,
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
+		'fields': [
+			('name', 'name ↑'), ('-name', 'name ↓'), ('price', 'price ↑'), ('-price', 'price ↓')
+		],
+		'session_sort': session_sort,	
 	}
 	
 	return render(request, 'e_store/items.html', context)
@@ -215,8 +211,7 @@ def item(request, item_id):
 		'selected_size': selected_size,
 		'items_url': reverse('e_store:items', args=[item.type.slug]),
 		'title': 'Item',
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
+		
 	}
 
 	return render(request, 'e_store/item.html', context)
@@ -296,8 +291,7 @@ def cart(request):
 			Q(quantity__gt=F('inventory__quantity')) | Q(inventory__isnull=True) | Q(item__isnull=True)
 		),
 		'title': 'Cart',
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
+		
 	}
 
 	return render(request, 'e_store/cart.html', context) 
@@ -359,8 +353,7 @@ def create_order(request):
 	context = {
 		'form': form,
 		'title': 'Shipping infos',
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
+		
 	}
 	return render(request, 'e_store/create_order.html', context)
 
@@ -465,8 +458,7 @@ def order(request, order_id):
 	context = {
 		'order': order,
 		'title': 'Order',
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
+		
 	}
 	return render(request, "e_store/order.html", context)
 
@@ -481,8 +473,7 @@ def order_success(request, order_id):
 	context = {
 		'order': order,
 		'title': 'Order success message',
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
+		
 	}
 	return render(request, "e_store/order_success.html", context)
 
@@ -492,8 +483,7 @@ def order_history(request):
 	context = {
 		'orders': orders,
 		'title': 'Order history',
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language(),
+		
 	}
 	return render(request, "e_store/order_history.html", context)
 
