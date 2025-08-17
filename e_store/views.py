@@ -241,30 +241,9 @@ def cart(request):
 		
 		try:
 			cart_item = CartItem.objects.get(id=cart_item_id)
-			max_available = available_inventory(cart_item.inventory)
-			
-			if adjust_quantity: 
-				# + - buttons
-				quantity = cart_item.quantity
-				if adjust_quantity == 'increase':
-					new_quantity = min(quantity + 1, max_available)	
 
-				elif adjust_quantity == 'decrease':
-					new_quantity = max(quantity - 1, 1)
-
-			elif manual_quantity_update:
-				new_quantity = manual_quantity_update
-
-			form = CartItemForm({'quantity': new_quantity}, instance=cart_item)
-			if form.is_valid():
-				form.save()
-				new_quantity = form.cleaned_data['quantity']
-				if new_quantity == max_available:
-					form.add_error('quantity', "Max quantity.")
-					error_form = form
-
-			elif delete_cart_item:
-				# Remove button
+			# Remove button
+			if delete_cart_item:
 				cart_item.delete()
 				# Check for pending order and cancel it if the cart is empty
 				if not cart_items and pending_order:
@@ -272,6 +251,29 @@ def cart(request):
 					pending_order.save()
 					messages.success(request, _("Order canceled successfully."))
 				return redirect("e_store:cart")
+
+			# Quantity change
+			else:
+				max_available = available_inventory(cart_item.inventory)
+				if adjust_quantity: 
+					# + - buttons
+					quantity = cart_item.quantity
+					if adjust_quantity == 'increase':
+						new_quantity = min(quantity + 1, max_available)	
+
+					elif adjust_quantity == 'decrease':
+						new_quantity = max(quantity - 1, 1)
+
+				elif manual_quantity_update:
+					new_quantity = manual_quantity_update
+
+				form = CartItemForm({'quantity': new_quantity}, instance=cart_item)
+				if form.is_valid():
+					form.save()
+					new_quantity = form.cleaned_data['quantity']
+					if new_quantity == max_available:
+						form.add_error('quantity', "Max quantity.")
+						error_form = form
 
 		except CartItem.DoesNotExist:
 			messages.error(request, "Could not find the item.")
