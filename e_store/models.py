@@ -252,13 +252,13 @@ class Order(models.Model):
 					self.decrease_inventory(order_item) 
 
 			# Notify customer about order status by email
-			#if existing_order.status != self.status:  # Check if order status has changed 
-			#	if self.status == "confirmed":
-			#		send_order_confirmation_email(order=self)
-			#	elif self.status in ["shipped", "delivered", "canceled"]:
-			#		notify_order_status_email(order=self)
-			#	else:
-			#		pass
+			if existing_order.status != self.status:  # Check if order status has changed 
+				if self.status == "confirmed":
+					send_order_confirmation_email(order=self)
+				elif self.status in ["shipped", "delivered", "canceled"]:
+					notify_order_status_email(order=self)
+				else:
+					pass
 
 		self.check_pending_order()
 		

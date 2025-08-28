@@ -306,14 +306,12 @@ def create_order(request):
 		raise Http404
 
 	# Limit orders by IP
-	"""
 	user_ip = get_user_ip(request)
-	time_limit = timezone.now() - timedelta(hours=24)
+	time_limit = timezone.now() - timedelta(minutes=5)
 	order_count = Order.objects.filter(ip_address=user_ip, created_at__gte=time_limit).count()
 
 	if order_count >= 2:
 		return HttpResponseForbidden(_("Too many orders. Try again later."))
-	"""
 	
 	try:
 		# Prefill the form
