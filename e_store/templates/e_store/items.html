@@ -24,16 +24,18 @@
 
 {% block content %}
   {% if items %}
-    <div class="d-flex flex-wrap">
+    <div class="row">
       {% for item in items %}
-        <div class="m-2 text-center">
-          <a href="{% url 'e_store:item' item.id %}">
-            <div class="card" style="width: 200px; height: 200px; overflow: hidden;">
-              <img src="{{ item.image.url }}" style="width: 200px; height: 200px; object-fit: cover;">
-            </div>
-          </a>
-          <h5 class="mt-2 mb-0">{{ item.name }}</h5>
-          <p class="mb-0">{% trans "Price" %}: {{ item.price|floatformat:2 }} DA</p>
+        <div class="col-auto mb-3">
+          <div class="m-2 text-center">
+            <a href="{% url 'e_store:item' item.id %}">
+              <div class="card" style="width: 200px; height: 200px; overflow: hidden;">
+                <img src="{{ item.image.url }}" style="width: 200px; height: 200px; object-fit: cover;">
+              </div>
+            </a>
+            <h5 class="mt-2 mb-0">{{ item.name }}</h5>
+            <p class="mb-0">{% trans "Price" %}: {{ item.price|floatformat:2 }} DA</p>
+          </div>
         </div>
       {% endfor %}
     </div>

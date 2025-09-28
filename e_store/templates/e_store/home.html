@@ -3,19 +3,22 @@
 {% load i18n %}
 
 {% block page_header %}
-  <h1>{% trans "Collections" %}</h1>
+  <h1>{% trans "Collection" %}</h1>
 {% endblock page_header %}
 
 {% block content %}
   {% if displays_urls %}
-    {% for display, url in displays_urls %}
-      <div class="d-flex flex-wrap justify-content-start">
-        <div class="card m-2" style="overflow: hidden;">
-          <a href="{{ url }}">
-            <img src="{{ display.image.url }}" style="height: 200px; width: 200px; object-fit: cover;">
-          </a> 
-      </div>
-    {% endfor %}
+    <div class="row">
+      {% for display, url in displays_urls %}
+        <div class="col-auto mb-3">
+          <div class="card m-2" style="overflow: hidden;">
+            <a href="{{ url }}">
+              <img src="{{ display.image.url }}" style="height: 200px; width: 200px; object-fit: cover;">
+            </a> 
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   {% else %}
     <h3>We're getting things ready! Categories will be available shortly.</h3>
   {% endif %}
