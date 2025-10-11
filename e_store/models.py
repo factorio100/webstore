@@ -79,22 +79,22 @@ class Order(models.Model):
 		("printing", "Printing in Progress & Decrease inventory"),  
 		("shipped", "Shipped & Notifie customer"),  
 		("delivered", "Delivered & Notifie customer"),  
-		("canceled", "Canceled & Notifie customer"),  
+		("cancelled", "Cancelled & Notifie customer"),  
 		("delivery refused", "Delivery refused")
 	] 
 	STATUS_FLOW = {
-        "pending": ["confirmed", "canceled"],
-        "confirmed": ["printing", "canceled"],
+        "pending": ["confirmed", "cancelled"],
+        "confirmed": ["printing", "cancelled"],
         "printing": ["shipped"],
         "shipped": ["delivered", "delivery refused"],
-        "delivered": [],
-        "canceled": [],
-        "delivery refused": [],
+        "delivered": ["delivered"],
+        "cancelled": ["cancelled"],
+        "delivery refused": ["delivery refused"],
     }
 	cart = models.ForeignKey(Cart, on_delete=models.CASCADE)  
 	created_at = models.DateTimeField(auto_now_add=True)
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES) 
-	# Customer infos
+	# Shipping infos
 	last_name = models.CharField(max_length=50, validators=[name_validator])
 	first_name = models.CharField(max_length=50, validators=[name_validator])
 	email = models.EmailField(max_length=50)
@@ -161,10 +161,6 @@ class Order(models.Model):
 	    ("El Menia", "El Menia"),
 	]
 	city = models.CharField(max_length=50, choices=CITIES_CHOICES)
-	postal_code =  models.CharField(
-		max_length=10,
-		validators=[RegexValidator(r"^\d{4,10}$", "Enter a valid postal code")],
-	)
 	ip_address = models.GenericIPAddressField(null=True, blank=True)  # To prevent spam
 
 	def total_price(self):
@@ -234,12 +230,12 @@ class Order(models.Model):
 	def save(self, *args, **kwargs):		
 		if self.id:  # Ensure the order already exists (not a new instance)
 			old_status = Order.objects.get(id=self.id).status  
-
 			# Enforce changing status in the correct order,
             # Using dictionary to enforce correct status order,  
-			# Old status value is used (key) to retreive the next allowed status (value),
-			# "old status": ["next status"]
-			if old_status != self.status:  # Prevents applying status flow when editing pending order through form view: call save() if old_status == self.status   
+			# Old status value is used (key) to retreive the next allowed status (value): "old status": ["next status"]
+			# Prevents applying status flow when editing pending order through views: 
+			# call save() if old_status == self.status   
+			if old_status != self.status:  # Detect order status change  
 				allowed_next_statuses = self.STATUS_FLOW.get(old_status, []) 
 				if self.status not in allowed_next_statuses:
 					raise ValidationError(

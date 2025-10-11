@@ -150,7 +150,7 @@ class CartItemForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):	
 	class Meta:
 		model = Order
-		fields = ['first_name', 'last_name', 'email', 'phone_number', 'address', 'city', 'postal_code']
+		fields = ['first_name', 'last_name', 'email', 'phone_number', 'address', 'city']
 
 	def __init__(self, cart, *args, **kwargs):
 		# Pass cart as parameter instead of using self.instance.cart,

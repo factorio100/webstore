@@ -28,8 +28,7 @@ def notify_order_status_email(order):
     # Prepare address details
     address = order.address
     city = order.city
-    postal_code = order.postal_code
-    address_city_postal_code = f"{address} {city} {postal_code}"
+    address_city_postal_code = f"{address} {city}"
 
     # Build the message based on order status, using the HTML link
     if order.status == 'shipped':

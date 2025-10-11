@@ -110,7 +110,7 @@ class OrderItemInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
         "id", "cart", "created_at", "display_total_price", "status", 
-        "last_name", "first_name", "email", "phone_number", "address", "city", "postal_code", "ip_address"
+        "last_name", "first_name", "email", "phone_number", "address", "city", "ip_address"
     )
     
     fieldsets = (
@@ -118,7 +118,7 @@ class OrderAdmin(admin.ModelAdmin):
             "fields": ("cart", "display_total_price", "status"),
         }),
         ("Customer Information", {
-            "fields": ("last_name", "first_name", "email", "phone_number", "address", "city", "postal_code"),
+            "fields": ("last_name", "first_name", "email", "phone_number", "address", "city"),
         }),
         ("Other Details", {
             "fields": ("ip_address",),
@@ -139,29 +139,31 @@ class OrderAdmin(admin.ModelAdmin):
     display_total_price.short_description = "Total Price"
     
     def get_readonly_fields(self, request, obj=None):
-        """Make order status readonly if order is pending to prevent status change in admin form."""
-        if obj and obj.status == "pending":  
-            return ("id", "cart", "display_total_price", "created_at", "status")
+        """Make status field readonly for certains order status."""
+        if obj and obj.status in ["pending", "delivered", "delivery refused", "cancelled"]:
+            # Add status field to readonly fields  
+            return ("id", "cart", "display_total_price", "created_at", "status")  
 
         return ("id", "cart", "display_total_price", "created_at")  
 
     def formfield_for_choice_field(self, db_field, request, **kwargs):
-        """Prevent admin from selecting certain status after the status has changed."""
+        """Add the correct order status to the choices."""
         field = super().formfield_for_choice_field(db_field, request, **kwargs)
 
         if db_field.name == "status": 
             order_id = request.resolver_match.kwargs.get("object_id")
             try:
                 order = self.model.objects.get(id=order_id)
+                # Retreive the correct next order status  
                 allowed_choices = Order.STATUS_FLOW.get(order.status, [])
+                # 
                 field.choices = [(value, label) for value, label in field.choices if value in allowed_choices]
                 
             except self.model.DoesNotExist:
                 pass  
 
         return field
-        
-
+    
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
