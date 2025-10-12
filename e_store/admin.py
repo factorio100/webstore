@@ -156,7 +156,7 @@ class OrderAdmin(admin.ModelAdmin):
                 order = self.model.objects.get(id=order_id)
                 # Retreive the correct next order status  
                 allowed_choices = Order.STATUS_FLOW.get(order.status, [])
-                # 
+                # Add order status to choices
                 field.choices = [(value, label) for value, label in field.choices if value in allowed_choices]
                 
             except self.model.DoesNotExist:

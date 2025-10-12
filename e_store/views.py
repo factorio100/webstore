@@ -247,7 +247,7 @@ def cart(request):
 				cart_item.delete()
 				# Check for pending order and cancel it if the cart is empty
 				if not cart_items and pending_order:
-					pending_order.status = "canceled"
+					pending_order.status = "cancelled"
 					pending_order.save()
 					messages.success(request, _("Order canceled successfully."))
 				return redirect("e_store:cart")
@@ -442,7 +442,7 @@ def order(request, order_id):
 						# Delete cart items if order is "pending"
 						cart_items = order.cart.cartitem_set.all().delete()
 					
-					order.status = 'canceled'
+					order.status = 'cancelled'
 					order.save()
 
 					# Delete shipping instance when order is canceled
