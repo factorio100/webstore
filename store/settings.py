@@ -216,6 +216,6 @@ LOCALE_PATHS = [
 import socket
 
 INTERNAL_IPS = config('INTERNAL_IPS', cast=Csv())
-
-
-
+if os.getenv('DEBUG_OVERRIDE', 'False') == 'True':
+    DEBUG = True
+    print("⚠️ DEBUG mode temporarily enabled for your IP only!")
