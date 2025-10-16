@@ -16,6 +16,7 @@ from decouple import config, Csv
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from pathlib import Path  # For debug in production
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -210,6 +211,11 @@ LANGUAGES = [
 LOCALE_PATHS = [
     BASE_DIR / 'locale',  
 ]
+
+# For debug in production
+import socket
+
+INTERNAL_IPS = config('INTERNAL_IPS', cast=Csv())
 
 
 

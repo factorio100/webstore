@@ -38,7 +38,12 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'e_store:cart' %}">
-                 <i class="bi bi-cart-fill"></i>
+                <div class="position-relative d-inline-block">
+                  <i class="bi bi-cart-fill"></i>
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ cart_item_count }}
+                  </span>
+                </div>
               </a>
             </li>
             <li class="nav-item">

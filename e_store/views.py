@@ -10,7 +10,6 @@ from django.urls import reverse
 from django.db.models import Q, F, Sum
 from .utils import available_inventory
 
-
 def get_user_ip(request):
     # Check for IP address in the 'X-Forwarded-For' header (used when behind a proxy)
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
