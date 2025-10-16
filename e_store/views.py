@@ -378,8 +378,6 @@ def edit_order_shipping(request, order_id):
 	context = {
 		'form': form,
 		'title': 'Edit shipping',
-		'LANGUAGES': settings.LANGUAGES,
-		'LANGUAGE_CODE': get_language()
 	}
 
 	return render(request, "e_store/edit_order_shipping.html", context)
