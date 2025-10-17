@@ -10,6 +10,14 @@ def global_context(request):
 
 	cart = cart_get_create(request)
 
+	try:
+		with connection.cursor() as cursor:
+			cursor.execute("SELECT 1 FROM e_store_display LIMIT 1;")
+	except Exception:
+		displays_ready = False
+	else:
+		displays_ready = True
+
 	return {
 		# Fix 'English' in the dropdown menu being translated
 		'LANGUAGES': settings.LANGUAGES,
