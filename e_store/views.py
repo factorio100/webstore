@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.db.models import Q, F, Sum
 from .utils import available_inventory
 
+
 def get_user_ip(request):
     # Check for IP address in the 'X-Forwarded-For' header (used when behind a proxy)
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -59,8 +60,8 @@ def home(request):
 		displays_urls.append((display, url))
 	
 	context = {
-		'displays_urls': displays_urls,		
-		'title': 'home',  # Avoid db error in Render
+		'displays_urls': displays_urls,
+		'title': 'home',  # Using global context for title cause db error in Render
 	}
 	
 	return render(request, 'e_store/home.html', context)
@@ -83,7 +84,7 @@ def items(request, item_type_slug):
 	
 	context = {
 		'items': items,
-		
+		'title': item_type,
 		'fields': [
 			('name', 'name ↑'), ('-name', 'name ↓'), ('price', 'price ↑'), ('-price', 'price ↓')
 		],
@@ -207,7 +208,7 @@ def item(request, item_id):
 		'decrease_button_disabled': decrease_button_disabled,
 		'selected_size': selected_size,
 		'items_url': reverse('e_store:items', args=[item.type.slug]),
-		
+		'title': 'Item',
 		
 	}
 
@@ -289,7 +290,7 @@ def cart(request):
 		'unavailable_inventory_item': cart_items.filter(
 			Q(quantity__gt=F('inventory__quantity')) | Q(inventory__isnull=True) | Q(item__isnull=True)
 		),
-		
+		'title': 'Cart',
 		
 	}
 
@@ -349,7 +350,7 @@ def create_order(request):
 
 	context = {
 		'form': form,
-		
+		'title': 'Shipping infos',
 		
 	}
 	return render(request, 'e_store/create_order.html', context)
@@ -374,7 +375,7 @@ def edit_order_shipping(request, order_id):
 
 	context = {
 		'form': form,
-		
+		'title': 'Edit shipping',
 	}
 
 	return render(request, "e_store/edit_order_shipping.html", context)
@@ -452,7 +453,7 @@ def order(request, order_id):
 
 	context = {
 		'order': order,
-		
+		'title': 'Order',
 		
 	}
 	return render(request, "e_store/order.html", context)
@@ -467,7 +468,7 @@ def order_success(request, order_id):
 	
 	context = {
 		'order': order,
-		
+		'title': 'Order success message',
 		
 	}
 	return render(request, "e_store/order_success.html", context)
@@ -477,7 +478,7 @@ def order_history(request):
 	orders = Order.objects.filter(cart=cart)	
 	context = {
 		'orders': orders,
-		
+		'title': 'Order history',
 		
 	}
 	return render(request, "e_store/order_history.html", context)

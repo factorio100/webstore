@@ -5,9 +5,6 @@ from django.db.models import Sum, F
 
 def global_context(request):
 	"""Send context to all views."""
-	match = request.resolver_match
-	func_name = match.func.__name__  
-
 	cart = cart_get_create(request)
 
 	return {
@@ -17,5 +14,4 @@ def global_context(request):
 		'cart_item_count': cart.cartitem_set.aggregate(
 			cart_item_count=Sum(F('quantity'))
 		)['cart_item_count'] or 0,
-		'title': func_name
 	}	
