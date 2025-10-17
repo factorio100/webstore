@@ -123,7 +123,13 @@ if DEBUG:
 
 # production postgres database
 elif not DEBUG:
-   DATABASES = {
+    DATABASES = {
+        'default': dj_database_url.parse(
+            config('DATABASE_URL'), # postgresql internal url for production, external url for local developpement 
+        )
+    }
+
+DATABASES = {
     'default': dj_database_url.parse(
         config('DATABASE_URL'), # postgresql internal url for production, external url for local developpement 
     )
