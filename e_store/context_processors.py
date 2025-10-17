@@ -1,22 +1,14 @@
+from django.conf import settings
+from django.utils.translation import get_language
+from .views import cart_get_create
+from django.db.models import Sum, F
+
 def global_context(request):
 	"""Send context to all views."""
-	from django.conf import settings
-	from django.utils.translation import get_language
-	from .views import cart_get_create
-	from django.db.models import Sum, F
-	
 	match = request.resolver_match
 	func_name = match.func.__name__  
 
 	cart = cart_get_create(request)
-
-	try:
-		with connection.cursor() as cursor:
-			cursor.execute("SELECT 1 FROM e_store_display LIMIT 1;")
-	except Exception:
-		displays_ready = False
-	else:
-		displays_ready = True
 
 	return {
 		# Fix 'English' in the dropdown menu being translated

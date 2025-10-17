@@ -59,10 +59,8 @@ def home(request):
 		displays_urls.append((display, url))
 	
 	context = {
-		'displays_urls': displays_urls,
-		
-		
-		
+		'displays_urls': displays_urls,		
+		'title': 'home',  # Avoid db error in Render
 	}
 	
 	return render(request, 'e_store/home.html', context)
