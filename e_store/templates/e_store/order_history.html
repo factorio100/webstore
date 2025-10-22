@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block page_header %}
-  <h1>Order history for the past 30 days</h1>
+  <h1>{% trans "Order history for the past 30 days" %}</h1>
 {% endblock page_header %}
 
 {% block content %}
@@ -20,7 +20,7 @@
           <strong>{% trans "Total" %}:</strong> {{ order.total_price|floatformat:2 }} DZD
         </p>
         <p class="mb-2">
-          <strong>{% trans "Status" %}:</strong> {{ order.status }}
+          <strong>{% trans "Status" %}:</strong> {{ order.get_status_display }}
         </p>
         <a href="{% url 'e_store:order' order.id %}" class="btn btn-outline-primary">
           <i class="bi bi-box-seam"></i> {% trans "View details" %}

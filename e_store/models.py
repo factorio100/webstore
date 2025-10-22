@@ -74,14 +74,14 @@ class Cart(models.Model):
 
 class Order(models.Model):
 	STATUS_CHOICES = [
-		("pending", "Pending"),  # Customer fils order details, customer can cancel order
-		("confirmed", "Confirmed"),  # Customer confirms the order, customer can cancel order
-		("printing", "Printing in Progress & Decrease inventory"),  
-		("shipped", "Shipped & Notifie customer"),  
-		("delivered", "Delivered & Notifie customer"),  
-		("cancelled", "Cancelled & Notifie customer"),  
-		("delivery refused", "Delivery refused")
-	] 
+    	("pending", _("Pending")),  
+    	("confirmed", _("Confirmed")),  
+    	("printing", _("Printing")),  
+    	("shipped", _("Shipped")),  
+    	("delivered", _("Delivered")),  
+    	("cancelled", _("Cancelled")),  
+    	("delivery refused", _("Delivery")),
+	]
 	STATUS_FLOW = {
         "pending": ["confirmed", "cancelled"],
         "confirmed": ["printing", "cancelled"],
@@ -95,11 +95,11 @@ class Order(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES) 
 	# Shipping infos
-	last_name = models.CharField(max_length=50, validators=[name_validator])
-	first_name = models.CharField(max_length=50, validators=[name_validator])
-	email = models.EmailField(max_length=50)
-	phone_number = PhoneNumberField(region="DZ")  # Validates Algerian numbers
-	address = models.CharField(max_length=200, validators=[MinLengthValidator(5)])
+	last_name = models.CharField(_("Last_name"), max_length=50, validators=[name_validator])
+	first_name = models.CharField(_("First name"), max_length=50, validators=[name_validator])
+	email = models.EmailField(_("Email"), max_length=50)
+	phone_number = PhoneNumberField(_("Phone number"), region="DZ")  # Validates Algerian numbers
+	address = models.CharField(_("Address"), max_length=200, validators=[MinLengthValidator(5)])
 	CITIES_CHOICES = [
 	    ("Adrar", "Adrar"),
 	    ("Chlef", "Chlef"),
@@ -160,8 +160,9 @@ class Order(models.Model):
 	    ("El M'Ghair", "El M'Ghair"),
 	    ("El Menia", "El Menia"),
 	]
-	city = models.CharField(max_length=50, choices=CITIES_CHOICES)
-	ip_address = models.GenericIPAddressField(null=True, blank=True)  # To prevent spam
+	city = models.CharField(_("City"), max_length=50, choices=CITIES_CHOICES)
+	# For spam
+	ip_address = models.GenericIPAddressField(null=True, blank=True)  
 
 	def total_price(self):
 		return self.orderitem_set.aggregate(
@@ -248,13 +249,13 @@ class Order(models.Model):
 					self.decrease_inventory(order_item) 
 
 			# Notify customer about order status by email
-			if old_status != self.status:  # Check if order status has changed 
-				if self.status == "confirmed":
-					send_order_confirmation_email(order=self)
-				elif self.status in ["shipped", "delivered", "canceled"]:
-					notify_order_status_email(order=self)
-				else:
-					pass
+			#if old_status != self.status:  # Check if order status has changed 
+			#	if self.status == "confirmed":
+			#		send_order_confirmation_email(order=self)
+			#	elif self.status in ["shipped", "delivered", "canceled"]:
+			#		notify_order_status_email(order=self)
+			#	else:
+			#		pass
 
 		self.check_pending_order()
 		

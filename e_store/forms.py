@@ -11,15 +11,18 @@ class AddToCartForm(forms.Form):
 		error_messages={'required': _("Please select a size.")}
 	)
 	quantity = forms.IntegerField(
-		initial=1,
-		min_value=1,   
-		widget=forms.NumberInput(attrs={"class": "form-control text-center quantity-input"}),
-		error_messages={
-			'required': _("Please enter a quantity."),  # When field is empty: quantity None
-			'invalid': _("Please enter a valid whole number."),
-			'min_value': _("You must add at least one item.")
-		},
-	)
+        label=_("Quantity"), # For translation  
+        initial=1,
+        min_value=1,
+        widget=forms.NumberInput(
+            attrs={"class": "form-control text-center quantity-input"}
+        ),
+        error_messages={
+            'required': _("Please enter a quantity."),          # empty input
+            'invalid': _("Please enter a valid whole number."), # wrong type
+            'min_value': _("You must add at least one item."),  # less than 1
+        },
+    )
 
 	def __init__(self, item, selected_size, cart, *args,  **kwargs):
 		super().__init__(*args, **kwargs)

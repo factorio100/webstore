@@ -4,7 +4,7 @@ from .views import cart_get_create
 from django.db.models import Sum, F
 
 def global_context(request):
-	"""Send context to all views."""
+	"""Send context to all views. Adding title here causes db error in Render"""
 	cart = cart_get_create(request)
 
 	return {

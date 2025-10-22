@@ -10,7 +10,6 @@ from django.urls import reverse
 from django.db.models import Q, F, Sum
 from .utils import available_inventory
 
-
 def get_user_ip(request):
     # Check for IP address in the 'X-Forwarded-For' header (used when behind a proxy)
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -86,7 +85,10 @@ def items(request, item_type_slug):
 		'items': items,
 		'title': item_type,
 		'fields': [
-			('name', 'name ↑'), ('-name', 'name ↓'), ('price', 'price ↑'), ('-price', 'price ↓')
+			('name', _('name ↑')), 
+			('-name', _('name ↓')), 
+			('price', _('price ↑')), 
+			('-price', _('price ↓'))
 		],
 		'session_sort': session_sort,	
 	}
@@ -321,7 +323,6 @@ def create_order(request):
 			'phone_number': latest_order.phone_number,
 			'address': latest_order.address,
 			'city': latest_order.city,
-			'postal_code': latest_order.postal_code 
 		}
 				
 	except Order.DoesNotExist:
