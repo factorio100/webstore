@@ -7,7 +7,7 @@ from .utils import ItemType
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'type', 'price', 'image_tag')  
-    readonly_fields = ('image_tag',)  # Makes image preview readonly in the detail view
+    readonly_fields = ('image_tag',)  # To display Image preview field
 
     def image_tag(self, obj):
         return format_html('<img src="{}" width="50" height="50" />', obj.image.url)
@@ -18,6 +18,7 @@ class ItemAdmin(admin.ModelAdmin):
 @admin.register(Display)
 class DisplayAdmin(admin.ModelAdmin):
     list_display = ('type', 'image_tag')
+    readonly_fields = ('image_tag',)
 
     def image_tag(self, obj):
         return format_html('<img src="{}" width="50" height="50" />', obj.image.url)

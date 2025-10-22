@@ -194,8 +194,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Set session to expire in 30 days 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30 
 
-# For email_utils.py
-SITE_ID = 1
+# To build urls in e_store.email_utils
+SITE_ID = 1  
 
 # Language
 LANGUAGE_CODE = 'en'  

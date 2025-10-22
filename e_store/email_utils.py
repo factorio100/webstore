@@ -1,6 +1,6 @@
 from django.core.mail import EmailMessage
 from django.urls import reverse
-from django.contrib.sites.models import Site
+from django.contrib.sites.models import Site  # Site instance
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
