@@ -78,12 +78,11 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ("id", "item", "inventory", "quantity", "cart", "total_price")  
-    readonly_fields = ("id", "item", "inventory", "quantity", "cart", "total_price")
-
+    list_display = ("id", "item", "inventory", "quantity", "cart", "total_price",)  
+    readonly_fields = ("id", "item", "inventory", "quantity", "cart", "total_price",)
+    
     def has_add_permission(self, request):
         return False
-
 
 class ShippingInline(admin.TabularInline):
     model = Shipping
@@ -170,12 +169,7 @@ class OrderAdmin(admin.ModelAdmin):
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ("item", "inventory", "quantity", "total_price", "order")
     
-    readonly_fields = ("item_name" ,"item", "inventory", "quantity", "total_price", "order")
-
-    def image_tag(self, obj):
-        return format_html('<img src="{}" width="50" height="50" />', obj.image.url)
-        
-    image_tag.short_description = 'Image Preview' # name of the field
+    readonly_fields = ("item_name" ,"item", "inventory", "quantity", "total_price", "order",)
 
     def has_add_permission(self, request):
         return False
