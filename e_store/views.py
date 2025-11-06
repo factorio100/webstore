@@ -9,6 +9,7 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 from django.db.models import Q, F, Sum
 from .utils import available_inventory
+from django.conf import settings
 
 def get_user_ip(request):
     # Check for IP address in the 'X-Forwarded-For' header (used when behind a proxy)
@@ -424,6 +425,9 @@ def order(request, order_id):
 			cart_items.delete()
 
 			request.session['success'] = True
+
+			if not settings.DEBUG:
+				messages.warning(request, "📧 Email notifications are temporarily unavailable. We’re working to restore them soon.")	
 			
 			return redirect('e_store:order_success', order_id=order.id)
 
@@ -447,6 +451,9 @@ def order(request, order_id):
 
 					messages.success(request, _("Order canceled successfully."))
 					
+					if not settings.DEBUG:
+						messages.warning(request, "📧 Email notifications are temporarily unavailable. We’re working to restore them soon.")						
+				
 				return redirect('e_store:order', order_id=order.id)
 			
 			except Order.DoesNotExist:
