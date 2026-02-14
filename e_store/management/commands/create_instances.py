@@ -1,131 +1,174 @@
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User 
-from e_store.models import Size, Inventory
-from e_store.models_cloudinary import Display, Item
-from e_store.utils import ItemType
+from django.contrib.auth import get_user_model
+from django.db import transaction
 from decouple import config
-from django.core.files import File
-import os
 import cloudinary.uploader
+
+from e_store.models import ItemType, Size, Inventory, Display, Item
+
+User = get_user_model()
+
 
 class Command(BaseCommand):
 
+    @transaction.atomic
     def handle(self, *args, **kwargs):
+
+        # =========================
+        # SUPERUSER
+        # =========================
         username = config('USERNAME')
         email = config('EMAIL')
         password = config('PASSWORD')
 
-        if not User.objects.filter(username=username).exists():
-            User.objects.create_superuser(username=username, email=email, password=password)
-            self.stdout.write(self.style.SUCCESS(f"Superuser '{username}' created successfully."))
+        user, created = User.objects.get_or_create(
+            username=username,
+            defaults={
+                "email": email,
+                "is_staff": True,
+                "is_superuser": True,
+            }
+        )
+
+        if created:
+            user.set_password(password)
+            user.save()
+            self.stdout.write(self.style.SUCCESS(f"Superuser '{username}' created."))
         else:
             self.stdout.write(self.style.WARNING(f"Superuser '{username}' already exists."))
 
-        # Demo admin
-        demo_username = "demo_admin"
-        demo_email = "demo_admin@example.com"
-        demo_password = "demo1234"
 
-        if not User.objects.filter(username=demo_username).exists():
-            User.objects.create_user(
-            username=demo_username,
-            email=demo_email,
-            password=demo_password,
-            is_staff=True,   
-            is_superuser=False 
-            )
-            self.stdout.write(self.style.SUCCESS(f"Superuser '{demo_username}' created successfully."))
+        # =========================
+        # DEMO ADMIN
+        # =========================
+        demo_user, created = User.objects.get_or_create(
+            username="demo_admin",
+            defaults={
+                "email": "demo_admin@example.com",
+                "is_staff": True,
+                "is_superuser": False,
+            }
+        )
+
+        if created:
+            demo_user.set_password("demo1234")
+            demo_user.save()
+            self.stdout.write(self.style.SUCCESS("Demo admin created."))
         else:
-            self.stdout.write(self.style.WARNING(f"Superuser '{demo_username}' already exists."))
+            self.stdout.write(self.style.WARNING("Demo admin already exists."))
 
-        # Create inventory for clothes
+
+        # =========================
+        # ITEM TYPES
+        # =========================
         clothes_types = ['t_shirt', 'pant', 'shirt', 'hoodie', 'sweater']
-        for type in clothes_types:
-            ItemType.objects.create(type=type)
 
-        clothes_types_instances = ItemType.objects.all()
+        for t in clothes_types:
+            ItemType.objects.get_or_create(type=t)
 
-        sizes_for_clothes = ['S', 'M', 'L', 'XL', 'XXL']
-        for size in sizes_for_clothes:
-            Size.objects.create(name=size)
-        
-        clothes_sizes_instances = Size.objects.all()
+        shoe_type, _ = ItemType.objects.get_or_create(type="shoe")
 
-        qty_clothes = [
-            [50, 0, 100, 40, 0], [50, 40, 100, 0, 80], [50, 10, 100, 0, 0],
-            [50, 50, 0, 0, 0], [0, 0, 100, 40, 0]
-        ]
-        
-        quantities = []
-        for l in qty_clothes:
-            for n in l:
-                quantities.append(n)
+        item_types = ItemType.objects.all()
 
-        type_size = []
-        for type in clothes_types_instances:
-            for size in clothes_sizes_instances:
-                    type_size.append((type, size))
 
-        type_size_qty = []
-        for pair, qty in zip(type_size, quantities):
-            type_size_qty.append((pair, qty))
+        # =========================
+        # SIZES
+        # =========================
+        sizes_clothes = ['S', 'M', 'L', 'XL', 'XXL']
+        for s in sizes_clothes:
+            Size.objects.get_or_create(name=s)
 
-        type_size_qty_formated = []
-        for a in type_size_qty:
-            ((x, y), z) = a
-            type_size_qty_formated.append((x, y, z))
-        
-        for type,size, qty in type_size_qty_formated:
-            Inventory.objects.create(type=type, size=size, quantity=qty)
-
-        # Create inventory for shoes
-        shoe = ItemType.objects.create(type="shoe")
         sizes_shoes = ['39', '40', '41', '42']
-        for size in sizes_shoes:
-            Size.objects.create(name=size)
-        
-        sizes_shoes_instances = []
-        for size in sizes_shoes:
-            instance = Size.objects.filter(name=size).first()
-            sizes_shoes_instances.append(instance)
+        for s in sizes_shoes:
+            Size.objects.get_or_create(name=s)
 
-        qty_shoe = [10, 50, 0, 50]
 
-        size_qty_shoe = []
-        for size, qty in zip(sizes_shoes_instances, qty_shoe):
-            size_qty_shoe.append((size, qty))
-
-        for size, qty in size_qty_shoe:
-            Inventory.objects.create(type=shoe, size=size, quantity=qty)
-        
-        # Create displays
-        item_type_instances = ItemType.objects.all()
-        
-        display_path_images = [
-            "C:/Users/EM/Desktop/designs/t_shirts/display_t_shirt.jpg",
-            "C:/Users/EM/Desktop/designs/pants/display_pant.jpg",
-            "C:/Users/EM/Desktop/designs/shirts/display_shirt.jpg",
-            "C:/Users/EM/Desktop/designs/hoodies/display_hoodie.jpg",
-            "C:/Users/EM/Desktop/designs/sweaters/display_sweater.jpg",
-            "C:/Users/EM/Desktop/designs/shoes/display_shoes.jpg"
+        # =========================
+        # INVENTORY (CLOTHES)
+        # =========================
+        qty_clothes = [
+            [50, 0, 100, 40, 0],
+            [50, 40, 100, 0, 80],
+            [50, 10, 100, 0, 0],
+            [50, 50, 0, 0, 0],
+            [0, 0, 100, 40, 0]
         ]
 
-        for type, image_path in zip(item_type_instances, display_path_images):
-            upload_result = cloudinary.uploader.upload(image_path, folder="displays/")
-            Display.objects.create(
-                image=upload_result['public_id'],  
-                type=type
+        clothes_type_instances = ItemType.objects.filter(type__in=clothes_types)
+        clothes_size_instances = Size.objects.filter(name__in=sizes_clothes)
+
+        quantities = [n for sublist in qty_clothes for n in sublist]
+
+        type_size_pairs = [
+            (t, s)
+            for t in clothes_type_instances
+            for s in clothes_size_instances
+        ]
+
+        for (t, s), qty in zip(type_size_pairs, quantities):
+            Inventory.objects.update_or_create(
+                type=t,
+                size=s,
+                defaults={"quantity": qty}
             )
 
-        
-        # Create items
-        item_path_images = [
-            ("C:/Users/EM/Desktop/designs/t_shirts/t_shirt_1.jpg", "C:/Users/EM/Desktop/designs/t_shirts/t_shirt_2.jpg"),
-            ("C:/Users/EM/Desktop/designs/pants/pant_1.jpg", "C:/Users/EM/Desktop/designs/pants/pant_2.jpg"),
-            ("C:/Users/EM/Desktop/designs/shirts/shirt_1.jpg", "C:/Users/EM/Desktop/designs/shirts/shirt_2.jpg"),
-            ("C:/Users/EM/Desktop/designs/hoodies/hoodie_1.jpg", "C:/Users/EM/Desktop/designs/hoodies/hoodie_2.jpg"),
-            ("C:/Users/EM/Desktop/designs/sweaters/sweater_1.jpg", "C:/Users/EM/Desktop/designs/sweaters/sweater_2.jpg"),
-            ("C:/Users/EM/Desktop/designs/shoes/shoes_1.jpg", "C:/Users/EM/Desktop/designs/shoes/shoes_2.jpg")
+
+        # =========================
+        # INVENTORY (SHOES)
+        # =========================
+        qty_shoes = [10, 50, 0, 50]
+
+        shoe_sizes_instances = Size.objects.filter(name__in=sizes_shoes)
+
+        for size, qty in zip(shoe_sizes_instances, qty_shoes):
+            Inventory.objects.update_or_create(
+                type=shoe_type,
+                size=size,
+                defaults={"quantity": qty}
+            )
+
+
+        # =========================
+        # DISPLAYS
+        # =========================
+        display_images = [
+            "C:/Users/EM/Desktop/programing/designs/t_shirts/display_t_shirt.jpg",
+            "C:/Users/EM/Desktop/programing/designs/pants/display_pant.jpg",
+            "C:/Users/EM/Desktop/programing/designs/shirts/display_shirt.jpg",
+            "C:/Users/EM/Desktop/programing/designs/hoodies/display_hoodie.jpg",
+            "C:/Users/EM/Desktop/programing/designs/sweaters/display_sweater.jpg",
+            "C:/Users/EM/Desktop/programing/designs/shoes/display_shoes.jpg"
+        ]
+
+        for item_type, image_path in zip(item_types, display_images):
+            upload_result = cloudinary.uploader.upload(image_path, folder="displays/")
+            Display.objects.update_or_create(
+                type=item_type,
+                defaults={"image": upload_result["public_id"]}
+            )
+
+
+        # =========================
+        # ITEMS
+        # =========================
+        item_images = [
+            ("C:/Users/EM/Desktop/programing/designs/t_shirts/t_shirt_1.jpg",
+             "C:/Users/EM/Desktop/programing/designs/t_shirts/t_shirt_2.jpg"),
+
+            ("C:/Users/EM/Desktop/programing/designs/pants/pant_1.jpg",
+             "C:/Users/EM/Desktop/programing/designs/pants/pant_2.jpg"),
+
+            ("C:/Users/EM/Desktop/programing/designs/shirts/shirt_1.jpg",
+             "C:/Users/EM/Desktop/programing/designs/shirts/shirt_2.jpg"),
+
+            ("C:/Users/EM/Desktop/programing/designs/hoodies/hoodie_1.jpg",
+             "C:/Users/EM/Desktop/programing/designs/hoodies/hoodie_2.jpg"),
+
+            ("C:/Users/EM/Desktop/programing/designs/sweaters/sweater_1.jpg",
+             "C:/Users/EM/Desktop/programing/designs/sweaters/sweater_2.jpg"),
+
+            ("C:/Users/EM/Desktop/programing/designs/shoes/shoes_1.jpg",
+             "C:/Users/EM/Desktop/programing/designs/shoes/shoes_2.jpg")
         ]
 
         names = [
@@ -138,7 +181,7 @@ class Command(BaseCommand):
         ]
 
         prices = [
-            ("40", "100"), 
+            ("40", "100"),
             ("250", "80"),
             ("10", "35"),
             ("60", "80"),
@@ -146,25 +189,28 @@ class Command(BaseCommand):
             ("47", "5000")
         ]
 
-        for type, (name_1, name_2), (price_1, price_2), (image_1, image_2) in zip(item_type_instances, names, prices, item_path_images): 
-            upload_result_1 = cloudinary.uploader.upload(image_1, folder="displays/")
-            upload_result_2 = cloudinary.uploader.upload(image_2, folder="displays/")
-            Item.objects.create(
-                name=name_1,
-                image=upload_result_1["public_id"],
-                type=type,
-                price=price_1
+        for item_type, (name1, name2), (price1, price2), (img1, img2) in zip(
+                item_types, names, prices, item_images):
+
+            upload1 = cloudinary.uploader.upload(img1, folder="items/")
+            upload2 = cloudinary.uploader.upload(img2, folder="items/")
+
+            Item.objects.update_or_create(
+                name=name1,
+                type=item_type,
+                defaults={
+                    "image": upload1["public_id"],
+                    "price": price1
+                }
             )
-            Item.objects.create(
-                name=name_2,
-                image=upload_result_2["public_id"],
-                type=type,
-                price=price_2
+
+            Item.objects.update_or_create(
+                name=name2,
+                type=item_type,
+                defaults={
+                    "image": upload2["public_id"],
+                    "price": price2
+                }
             )
 
-        
-
-        
-
-
-
+        self.stdout.write(self.style.SUCCESS("Seeding completed successfully."))
